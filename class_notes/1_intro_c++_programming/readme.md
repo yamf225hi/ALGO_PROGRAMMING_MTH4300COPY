@@ -4,9 +4,8 @@
 1. programming languages intro
 2. Environment Setup
 3. Terminal Basics
-4. Check Python in Docker!
-5. .gitignore and developing in this repo without git conflicts
-6. Compilation and Arguments
+4. .gitignore and developing in this repo without git conflicts
+5. Compilation and Arguments
 
 
 ## programming languages intro
@@ -27,10 +26,47 @@ The higher the level of a programming language implies a more complex and comput
 
 
 ## First Program 
-Our first program will be the traditional hello world program. Code can be found [here](./main.cpp). In this code, we discussed the \<iostream\> library(which handles input and output for the program, via input keyboard and output screen). We briefly described how this library is defined within the namespace **std**. We also went over the purpose of the main function in c++, which is to start the execution of the code when you run the program. To run our code we must first compile, then execute.<br><br>
+### Code:
+```cpp
+#include<iostream>
 
-### Steps 
-1. Open a terminal, then navigate the terminal to where your code is located(using cd command). Example: ``` cd ./class_notes/week1/intro-08_29``` 
+using namespace std;
+
+int main()
+{
+    cout<<"Hello World"<<endl;
+    return 0;
+}
+```
+
+### Breakdown:
+1. ```#include<iostream>```
+  * This is a preprocessor directive that includes the input-output stream library (iostream).
+  * This library allows the use of cout and cin for output and input, respectively.
+
+2. ```using namespace std;```
+  * This statement allows the use of standard C++ library functions and objects (like cout) without explicitly writing std::cout.
+  * Without this, you would need to use std::cout instead of just cout.
+
+3. ```int main()```
+  * The main function is the entry point of every C++ program.
+  * The execution of the program starts from here.
+
+4. ```cout<<"Hello World"<<endl;```
+  * cout (console output) is used to print text to the screen.
+  * "Hello World" is the string that gets printed.
+  * endl moves the cursor to a new line (it is equivalent to \n).
+5. ```return 0;```
+  * This statement indicates that the program has successfully executed.
+  * Returning 0 is a convention that signifies successful execution to the operating system.
+
+Output of the Code:
+```bash
+Hello World
+```
+
+### Steps for running program
+1. Open a terminal, then navigate the terminal to where your code is located(using cd command). Example: ``` cd ./class_notes/1_intro_c++_programming``` 
 2. Type the command(to compile): ``` g++ main.cpp ```
 3. Type the command ``` ls ``` to see if your computer created the executable **a.out**(mac or linux) or **a.exe**(windows)
 4. Type the command(to execute(run on cpu)): ```./a.exe ``` or ```./a.out ```
@@ -54,33 +90,29 @@ The simplest method to download the g++ compiler for any computer will be via do
     * Dev Containers
     * C/C++ Themes
 
-Once you have installed all the links above, open vscode and its terminal with shortcut **ctrl+`**, and navigate to where you want to download the github folder on your computer. Once you settle on a location, run the command<br> ```git clone https://github.com/canizalesjaime/Mth4300_algorithms_and_programming.git```
+Once you have installed all the links above, open vscode and its terminal with shortcut **ctrl+`**, and navigate to where you want to download the github folder on your computer. Once you settle on a location, run the command<br> ```git clone https://github.com/canizalesjaime/algorithms_and_programming_mth4300.git```
 
 Create a folder and name it **hidden**, inside this folder you can develop code that won't conflict with the class code.
 
-To open the github directory in vscode, first open vscode, then open the directory Mth4300_algorithms_and_programming by going to **File** on top left then press **Open Folder...** and select Mth4300_algorithms_and_programming folder. Everytime you open the folder in vscode you should open a terminal using the shortcut **ctrl+`** then run the command ```git pull```. This will update any changes I have made recently to the directory.
+To open the github directory in vscode, first open vscode, then open the directory algorithms_and_programming_mth4300 by going to **File** on top left then press **Open Folder...** and select algorithms_and_programming_mth4300 folder. Everytime you open the folder in vscode you should open a terminal using the shortcut **ctrl+`** then run the command ```git pull```. This will update any changes I have made recently to the directory.
 
 
 ## Terminal Basics
 In this class we will be using the terminal as a means for interacting with our computer. To acces the terminal in vscode use the shortcut **ctrl+`**. 
 ### List of useful commands(Note the terms directory, and folder are the same thing):
-* pwd : print the working directory(where your terminal is operating from)
-* cd : change directory (changing working directory to another directory) ```cd directory_path```
-* mv : move a file to another location ```mv file_to_move location_to_move_file```
-* cp : copy a file  ```cp file_to_copy location_to_copy_file```
-* mkdir : create a directory ```mkdir new_folder_name```
-* ls : show all files in the working directory
-* g++ : compile a *.cpp file into a.out
-* ./ : shorcut for this directory ```./a.out``` (is saying in this directory execute a.out(analogous to clicking on file)) 
-* ../ : refers to the parent directory. ```cd ../```(changes the working directory to the parent directory)
-
-
-## Check Python in Docker!
-You can open docker and run ```python3 main.py```(from this directory) and run your first python program in docker!
+* **pwd :** print the working directory(where your terminal is operating from)
+* **cd :** change directory (changing working directory to another directory) ```cd directory_path```
+* **mv :** move a file to another location ```mv file_to_move location_to_move_file```
+* **cp :** copy a file  ```cp file_to_copy location_to_copy_file```
+* **mkdir :** create a directory ```mkdir new_folder_name```
+* **ls :** show all files in the working directory
+* **g++ :** compile a *.cpp file into a.out
+* **./ :** shorcut for this directory ```./a.out``` (is saying in this directory execute a.out(analogous to clicking on file)) 
+* **../ :** refers to the parent directory. ```cd ../```(changes the working directory to the parent directory)
 
 
 ## .gitignore and developing in this repo without git conflicts
-When using git, sometimes you may want to code your own stuff in this repo, but you will notice that if you add your own code, then try to ```git pull``` changes you get a git conflict error. In order to solve this problem we use the **.gitignore** file. The **.gitignore** file is a special file in git, that allows us to ignore files and directories(aka repos and folders) from causing changes to the git repo. Check out the .gitignore file [here](../../../.gitignore), in the .gitignore file, you can see that we added a line ***hidden/**, this line allows us to create a folder named **hidden** anywhere, and it will not conflict with anything in the git repo.
+When using git, sometimes you may want to code your own stuff in this repo, but you will notice that if you add your own code, then try to ```git pull``` changes you get a git conflict error. In order to solve this problem we use the **.gitignore** file. The **.gitignore** file is a special file in git, that allows us to ignore files and directories(aka repos and folders) from causing changes to the git repo. Check out the .gitignore file [here](../../.gitignore), in the .gitignore file, you can see that we added a line ***hidden/**, this line allows us to create a folder named **hidden** anywhere, and it will not conflict with anything in the git repo.
 
 
 ## Compilation and Arguments

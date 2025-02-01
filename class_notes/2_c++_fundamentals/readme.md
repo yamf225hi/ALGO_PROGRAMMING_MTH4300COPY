@@ -11,64 +11,133 @@
 8. Practice Examples
 
 
-## C++ Syntax
-* Comments in C++ can be specified in two ways with operator ```// comments for one line``` or<br> ```/* comment can span multiple lines */```  
-* Statements are a line of code(one instruction)
-* Semicolons are used to end a statement in C++. 
-* variables in C++ is how the developer can store and manage data of different forms.There are many variable types:
-  * int - Represents an integer ```int x = 7;```(the variable types short and long are also integers, but they represent a smaller and larger range respectively).
-  *  float - Represents a decimal number, such as ```float y = 2.718;``` (the variable type double is also a decimal number, but allows for higher precision(more decimal places) at the cost of more memory)
-  * char - Represents one character ```char a = 'd';```
-  * string - Represents a sequence of characters ```string word = "Hello World";```
-  * boolean - A variable that can be either true or false. ```bool check = true;```
-* Variable names must follow these three rules:
-  * no keywords can be used as variable names. [list of keywords](https://en.cppreference.com/w/cpp/keyword) 
-  * variable names cannot start with a number
-  * variable names can only contain alphanumeric characters and underscores. 
-* A preprocessor directive is specified using the ```#```. For example #include\<iostream\>, and #include\<string\>. Preprocessor directives are parts of your code that must be prepared before compilation. For example, the compiler must fetch the code for the iostream and string libraries first, before it can compile these sections.
-* The scope of a variable is determined by the curly braces it is within. The variable does not exist outside of the curly braces.
+## **C++ Syntax Guide**  
+
+### **Comments in C++**  
+In C++, comments can be specified in two ways:  
+- **Single-line comments**: Indicated by `//`, which marks everything after it on the same line as a comment.  
+- **Multi-line comments**: Enclosed between `/*` and `*/`, allowing comments to span multiple lines.  
+
+### **Statements and Semicolons**  
+- A **statement** in C++ represents a single instruction or line of code.  
+- Statements must be terminated with a **semicolon (`;`)**.  
+
+### **Variables in C++**  
+Variables in C++ allow developers to store and manage data of different types. Common variable types include:  
+
+- **`int` (Integer)**: Represents whole numbers.  
+  - Example:  
+    ```cpp
+    int x = 7;
+    ```  
+  - Variants include `short` (smaller range) and `long` (larger range).  
+
+- **`float` (Floating-point number)**: Represents decimal numbers.  
+  - Example:  
+    ```cpp
+    float y = 2.718;
+    ```  
+  - The `double` type offers higher precision at the cost of increased memory usage.  
+
+- **`char` (Character)**: Represents a single character.  
+  - Example:  
+    ```cpp
+    char a = 'd';
+    ```  
+
+- **`string` (String of characters)**: Represents a sequence of characters.  
+  - Example:  
+    ```cpp
+    string word = "Hello World";
+    ```  
+
+- **`bool` (Boolean)**: Represents a value that is either `true` or `false`.  
+  - Example:  
+    ```cpp
+    bool check = true;
+    ```  
+
+### **Rules for Variable Naming**  
+Variable names in C++ must follow these rules:  
+1. Keywords (reserved words) **cannot** be used as variable names.  
+2. Variable names **cannot** start with a number.  
+3. Variable names can only contain **alphanumeric characters and underscores (`_`)**.  
+
+### **Preprocessor Directives**  
+- Preprocessor directives begin with `#` and instruct the compiler to perform preprocessing before compilation.  
+- Examples include:
+  * ```#include <iostream>``` (for input-output operations)
+  * ```#include <string>``` (for string manipulation)
+
+
+### Scope of Variables
+* The scope of a variable is determined by the curly braces ```{}``` in which it is declared.
+  * A variable exists only within its enclosing block and cannot be accessed outside of it.
 
 
 ## Functions
-A function is a block of code that performs some operation. A function can optionally define input parameters that enable callers to pass arguments into the function. A function can optionally return a value as output.
-Function Synatx for function definition:<br>
-```
-return_type function_name(type_1 param_1, type_2 param_2, ..., type_n param_n)
+A function is a reusable block of code that performs a specific operation. Functions may:
+
+* Accept input parameters (arguments).
+* Return a value (optional).
+
+### Function Syntax
+```cpp
+return_type function_name(type_1 param_1, type_2 param_2, ..., type_n param_n)  
 {
-  // code
-  return value_of_return_type;
+    // Function code
+    return value_of_return_type;
 }
-``` 
-<br>
+```
 
-In C++ it is good practice to separate the function definition from its decalaration. This will be more important when we introduce classes and separation of implementation and interfaces.<br><br>
-A function declaration is placed above the function definiton for main and the function definition is placed below it. The purpose of this is when you perform a function call in the main function, the main function knows what the function is and what it does. Check out the function foo in [file](./main.cpp) to see exactly how this works.
-
-
-## Operators
-Operators are symbols that perform operations on variables and values.
-### Arithmetic Operators
-The arithmetic operators work exactly as they do in regular math. They take values as inputs(must be integer or decimal) and return the result of the arithmetic operation.
-* \+ adds values
-* \- subtracts values
-* / divides
-* \* multipies
-* % is referred to as the mod operator. This opeartor divides the first value by the second then returns the remainder. Example: ```cout<<15%2;``` would print 1. Inputs must be integers to use this operator.
-to include logical(boolean), arithmetic(ints and floats), string
-* = assigns a value to a variable
-
-### Logical Operators
-Logical Operators are used to test if some condition is true or false. They take in two values as input, and return either true or false.  
-* ! The not operartor. This is the only operator on the list that takes in only one input value. Returns the negation of the input value.
-* && The and operator. Returns true if both inputs are true, otherwise returns false. 
-* || The or operator. Returns true if at least one of the inputs is true, otherwise returns false.
-* == The equality operator. Returns true if the two inputs are equivalent, otherwise return false.
+### Function Declaration and Definition
+* It is good practice to declare a function before defining it, especially when working with classes and object-oriented programming.
+* The function declaration is placed above the main function, while the function definition appears below.
 
 
-### Object Operators
-C++ is an oject oriented class. What this means is that the software developer has the power to create his own classes(which are treated as types internally). C++ allows us to overload the operators for these classes, which means give semantic meaning to something like **class toaster + class bread**. This statement does not make sense unless we apply meaning to the + operator by overloading it. More on operator overloading in the future!<br><br>
+## **Operators in C++**  
 
-One example is the string class + operator. The + operator for strings is going to concatenate the two strings. For an example check out this [code](./concatenate.cpp)
+### **Arithmetic Operators**  
+Arithmetic operators perform mathematical operations on numeric values.  
+
+| Operator | Description       | Example     |
+|----------|-------------------|-------------|
+| `+`      | Addition          | `x + y`     |
+| `-`      | Subtraction       | `x - y`     |
+| `*`      | Multiplication    | `x * y`     |
+| `/`      | Division          | `x / y`     |
+| `%`      | Modulus (remainder) | `15 % 2` results in `1` (works only with integers) |
+
+### **Assignment Operator**  
+| Operator | Description                 | Example     |
+|----------|-----------------------------|-------------|
+| `=`      | Assigns a value to a variable | `int x = 5;` |
+
+### **Logical Operators**  
+Logical operators evaluate conditions and return `true` or `false`.  
+
+| Operator | Description               | Example                |
+|----------|---------------------------|------------------------|
+| `!`      | NOT (negation)             | `!true → false`       |
+| `&&`     | AND (both must be true)    | `true && false → false` |
+| `||`     | OR (at least one is true)  | `true || false → true` |
+| `==`     | Equality check             | `5 == 5 → true`       |
+
+---
+
+### **Object-Oriented Programming and Operators**  
+C++ supports **object-oriented programming (OOP)**, allowing developers to define their own **classes** and **customize operators** through **operator overloading**.  
+
+### **Operator Overloading**  
+Operator overloading enables assigning custom functionality to operators for user-defined types.  
+
+For example, in the `string` class:  
+```cpp
+string str1 = "Hello";
+string str2 = " World";
+string result = str1 + str2;  // Concatenation using `+`
+cout << result;  // Output: Hello World
+```
 
 
 ## Conditional Statements
