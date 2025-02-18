@@ -3,7 +3,8 @@
 ## table of contents
 1. Arrays Continued
 2. Recursion
-3. Practice Examples
+3. Function Call Stack
+4. Practice Examples
 
 
 ## Arrays Continued
@@ -119,6 +120,139 @@ In this example:
 * Risk of stack overflow if recursion depth becomes too large.
 Recursion is a powerful tool but should be used with care, especially for problems that can have a large depth of recursive calls.
 
+
+## Function Call Stack
+In C++, when a function is called recursively, the compiler uses a **call stack** to manage function calls and local variables. This is a crucial part of how recursion works.
+
+---
+
+### **1. What is the Function Call Stack?**
+The **function call stack** is a **LIFO (Last In, First Out)** data structure used by the compiler to store:
+1. **Function return addresses**
+2. **Local variables**
+3. **Parameters passed to functions**
+4. **Saved registers (context switching between functions)**
+
+Each function call creates a **stack frame** that holds the above information. When a function returns, its frame is popped from the stack.
+
+---
+
+### **2. How the Call Stack Works in Recursion**
+Let's consider a recursive function to compute factorial:
+
+### **Example: Factorial Function**
+```cpp
+#include <iostream>
+using namespace std;
+
+int factorial(int n) {
+    if (n == 0) return 1;  // Base case
+    return n * factorial(n - 1);  // Recursive call
+}
+
+int main() {
+    cout << "Factorial of 5: " << factorial(5) << endl;
+    return 0;
+}
+```
+
+#### Execution Steps (Stack Frames)
+| Call          | Function         | Return Address            | Local Variables |
+|--------------|----------------|--------------------------|----------------|
+| `main()`      | Calls `factorial(5)` | --                       | `n = 5`        |
+| `factorial(5)` | Calls `factorial(4)` | `return 5 * factorial(4)` | `n = 5`        |
+| `factorial(4)` | Calls `factorial(3)` | `return 4 * factorial(3)` | `n = 4`        |
+| `factorial(3)` | Calls `factorial(2)` | `return 3 * factorial(2)` | `n = 3`        |
+| `factorial(2)` | Calls `factorial(1)` | `return 2 * factorial(1)` | `n = 2`        |
+| `factorial(1)` | Calls `factorial(0)` | `return 1 * factorial(0)` | `n = 1`        |
+| `factorial(0)` | Returns `1` (Base Case) | --                     | `n = 0`        |
+
+
+Once `factorial(0)` returns `1`, the stack starts popping:
+
+- `factorial(1) → return 1 * 1 = 1`
+- `factorial(2) → return 2 * 1 = 2`
+- `factorial(3) → return 3 * 2 = 6`
+- `factorial(4) → return 4 * 6 = 24`
+- `factorial(5) → return 5 * 24 = 120`
+
+Finally, `main()` receives the result `120` and the program ends.
+
+### 3. Stack Overflow in Recursion
+If recursion depth is too large, the stack runs out of space, causing a stack overflow error.
+
+#### Example of Infinite Recursion (Stack Overflow)
+```cpp
+void infiniteRecursion() {
+    infiniteRecursion();  // No base case
+}
+
+int main() {
+    infiniteRecursion();  // Stack overflow!
+    return 0;
+}
+```
+Since there's no base case, the function never terminates, and the call stack fills up until the program crashes.
+
+### 4. Tail Recursion Optimization
+#### Problem with Regular Recursion
+Each recursive call creates a new stack frame, increasing memory usage. Tail recursion is a technique where the recursive call is the last operation in the function, allowing the compiler to optimize memory usage.
+
+#### Example of Tail Recursion (Optimized)
+```cpp
+#include <iostream>
+using namespace std;
+
+int tailFactorial(int n, int result = 1) {
+    if (n == 0) return result;  // Base case
+    return tailFactorial(n - 1, n * result);  // Tail recursive call
+}
+
+int main() {
+    cout << "Factorial of 5: " << tailFactorial(5) << endl;
+    return 0;
+}
+```
+💡 In tail recursion, the compiler can replace recursive calls with a loop internally (tail call optimization). However, C++ does not guarantee tail call optimization.
+
+### 5. Function Call Stack vs. Explicit Stack
+Instead of recursion, we can use an explicit stack (like ```std::stack```) to manage function calls manually.
+
+#### Example: Iterative Factorial Using a Stack
+```cpp
+#include <iostream>
+#include <stack>
+
+int factorial(int n) {
+    std::stack<int> s;
+    int result = 1;
+
+    for (int i = 1; i <= n; i++)
+        s.push(i);
+
+    while (!s.empty()) {
+        result *= s.top();
+        s.pop();
+    }
+
+    return result;
+}
+
+int main() {
+    std::cout << "Factorial of 5: " << factorial(5) << std::endl;
+    return 0;
+}
+```
+
+Advantages of an explicit stack: ✔ Avoids recursion overhead.
+✔ Prevents stack overflow for deep recursion cases.
+
+### Conclusion
+* The function call stack is used to manage recursion.
+* Each recursive function call creates a stack frame that stores local variables and return addresses.
+* Stack overflow occurs when too many recursive calls fill up the memory.
+* Tail recursion can optimize memory usage in some compilers.
+* Explicit stacks (```std::stack```) can be used instead of recursion for better control.
 
 ## Practice Examples
 1. Write a C++ program, that prompts the user for the number of rows and 
