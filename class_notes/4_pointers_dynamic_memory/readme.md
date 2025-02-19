@@ -12,32 +12,32 @@ In C++, a pointer is a variable that stores the memory address of another variab
 ### Key Concepts:
 * Pointer Declaration: A pointer is declared by specifying the data type it points to, followed by an asterisk (*) before the pointer name.
 ```cpp
-int *ptr;  // ptr is a pointer to an integer
+int* ptr;  // ptr is a pointer to an integer
 ```
 
 * Pointer Initialization: Pointers hold the memory address of another variable, which is assigned using the address-of operator (&).
 ```cpp
 int a = 10;
-int *ptr = &a;  // ptr holds the address of variable a
+int* ptr = &a;  // ptr holds the address of variable a
 ```
 
 * Dereferencing a Pointer: Dereferencing a pointer means accessing the value stored at the memory address held by the pointer. This is done using the dereference operator (*).
 ```cpp
 int a = 10;
-int *ptr = &a;
+int* ptr = &a;
 cout << *ptr;  // Outputs: 10 (value of a)
 ```
 
 * Null Pointer: A pointer that does not point to any valid memory address is called a null pointer. It is often initialized with nullptr or NULL.
 ```cpp
-int *ptr = nullptr;  // ptr points to nothing
+int* ptr = nullptr;  // ptr points to nothing
 ```
 
 * Pointer Arithmetic: Pointers can be incremented or decremented, which advances or rewinds the memory address by the size of the data type it points to. This is commonly used with arrays.
 
 ```cpp
 int arr[] = {1, 2, 3};
-int *ptr = arr;  // ptr points to the first element of the array
+int* ptr = arr;  // ptr points to the first element of the array
 ptr++;           // Now ptr points to the second element of the array
 ```
 
@@ -48,7 +48,7 @@ using namespace std;
 
 int main() {
     int var = 20;       // Declare an integer variable
-    int *ptr = &var;    // Declare a pointer that holds the address of var
+    int* ptr = &var;    // Declare a pointer that holds the address of var
     
     cout << "Address of var: " << ptr << endl;     // Prints the memory address
     cout << "Value of var: " << *ptr << endl;      // Dereferences the pointer to get the value of var
