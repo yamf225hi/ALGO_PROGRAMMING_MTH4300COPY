@@ -1,8 +1,14 @@
 #include<iostream>
-#include<cmath>
+
 
 using namespace std;
 
+int recursive_pow(int base, int exp)
+{
+    if(exp==0) return 1;
+
+    return base*recursive_pow(base,exp-1);
+}
 
 int main()
 {
@@ -23,7 +29,7 @@ int main()
             }
             else if(j%2==0)
             {
-                matrix[i][j]=pow(i,j);
+                matrix[i][j]=recursive_pow(i,j);
             }
             else
             {
