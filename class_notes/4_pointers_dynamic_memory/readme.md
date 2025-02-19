@@ -68,14 +68,14 @@ Value of var: 20
 * Dynamic Memory Allocation: Pointers are used with new and delete to allocate and deallocate memory dynamically.
 
 ```cpp
-int *p = new int;  // Allocates memory for an integer
+int* p = new int;  // Allocates memory for an integer
 *p = 10;
 delete p;  // Frees the allocated memory
 ```
 * Arrays and Functions: Pointers are commonly used to pass arrays or large data structures to functions to avoid copying.
 
 ```cpp
-void printArray(int *arr, int size) {
+void printArray(int* arr, int size) {
     for (int i = 0; i < size; i++) {
         cout << arr[i] << " ";
     }
@@ -85,8 +85,8 @@ void printArray(int *arr, int size) {
 
 ```cpp
 int a = 5;
-int *p = &a;     // Pointer to integer
-int **q = &p;    // Pointer to pointer
+int* p = &a;     // Pointer to integer
+int** q = &p;    // Pointer to pointer
 ```
 
 ### Advantages of Pointers:
