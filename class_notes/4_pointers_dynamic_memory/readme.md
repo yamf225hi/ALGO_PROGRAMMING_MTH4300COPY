@@ -216,4 +216,9 @@ Dynamic memory in C++ allows for flexible memory management, particularly useful
    * Using the pointer, display the value of the integer variable.
    * Modify the value of the integer variable using the pointer, and then display the updated value.
 
-2. Write a question on dynamic memory
+2. Write a C++ program that dynamically allocates memory for a list of student names. The program should:
+   * Ask the user to enter the number of students.
+   * Dynamically allocate memory for an array of strings to store the names.
+   * Allow the user to input each student's name.
+   * Display the list of student names.
+   * Deallocate all dynamically allocated memory before the program ends.
