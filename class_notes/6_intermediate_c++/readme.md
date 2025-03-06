@@ -2,10 +2,11 @@
 
 ## table of contents
 1. Initialization Lists
-2. Const
-3. Default Arguments
-4. Namespaces
-5. Return by reference and value
+2. Lvalues, Rvalues, and Reference Variables in C++
+3. Const
+4. Default Arguments
+5. Namespaces
+6. Pass by reference and value
 
 
 ## Initialization Lists
@@ -421,7 +422,7 @@ int main() {
 * Namespaces are a fundamental feature in C++ that help manage the complexity of larger codebases and libraries by providing a structured way to group and access related code elements.
 
 
-## Return by reference and value
+## Pass by reference and value
 In C++, when calling a function, you can pass arguments in two main ways: pass by value and pass by reference. Understanding the differences between these two approaches is crucial for writing efficient and correct code.
 
 ### Pass by Value
