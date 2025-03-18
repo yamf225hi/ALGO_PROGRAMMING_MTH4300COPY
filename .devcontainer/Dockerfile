@@ -11,7 +11,7 @@
 # RUN echo "LIBGL_ALWAYS_INDIRECT=0" >> ~/.bashrc
 
 
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 SHELL [ "/bin/bash" , "-c" ]
 
