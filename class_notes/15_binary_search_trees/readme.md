@@ -6,6 +6,26 @@
 
 
 ## Binary Search Trees
+BSTs (Binary Search Trees) are great data structures because they combine efficient data organization with fast search, insert, and delete operations—especially when the tree is balanced.
+
+Here’s a breakdown of why BSTs are good:
+
+### Fast Lookup, Insertion, and Deletion
+* Time Complexity: O(log n)
+
+#### Why?
+Because each comparison eliminates half of the remaining tree, like binary search.
+(This only holds if the tree is reasonably balanced.)
+
+### Ordered Structure
+* All nodes follow the rule:
+    * Left subtree < current node < Right subtree
+
+* This structure naturally keeps elements sorted, which is super useful for:
+  * In-order traversal (gets elements in sorted order)
+  * Range queries (e.g., “find all elements between 10 and 50”)
+  * Finding min/max, floor/ceiling, successor/predecessor efficiently
+
 A Binary Search Tree (BST) is a data structure that organizes elements (or nodes) in a hierarchical manner, making it efficient for operations like searching, insertion, and deletion. Here's a breakdown of how BSTs work in C++ and their basic concepts.
 
 ### Properties of a Binary Search Tree
