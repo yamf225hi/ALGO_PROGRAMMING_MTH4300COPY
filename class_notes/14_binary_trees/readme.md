@@ -92,6 +92,56 @@ void postOrder(Node* root) {
 }
 ```
 
+
+## Wrappers
+In C++, wrappers for binary trees are often used to organize code and make tree manipulation cleaner — especially when working with recursive functions or when hiding implementation details from users.
+
+### What’s a Wrapper?
+A wrapper is usually a class or function that wraps around raw pointers and utility methods for better usability, abstraction, and maintainability.
+
+### Example 1: Basic binary tree node struct + wrapper class
+```cpp
+// Node definition (usually private or internal)
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int v) : val(v), left(nullptr), right(nullptr) {}
+};
+
+// Wrapper class for the binary tree
+class BinaryTree {
+private:
+    TreeNode* root;
+    void insert(TreeNode*& node, int value) {
+    if (node == nullptr)
+        node = new TreeNode(val);
+
+    else if (rand() % 2 == 0)
+        insertRandom(node->left, val);
+    
+    else insertRandom(node->right, val);
+    }
+
+public:
+    BinaryTree() : root(nullptr) {}
+
+    //wrapper method for insert
+    void insert(int value) {
+        insert(root, value);
+    }
+    // You can add more wrapper methods like search(), print(), etc.
+};
+```
+
+### Why use a wrapper class?
+* Encapsulation – hides raw pointer management.
+* Cleaner API – like tree.insert(10) instead of dealing with node pointers.
+* Reusability – once built, you can reuse the tree easily.
+* Safer memory handling – you can add destructors for cleanup, smart pointers, etc.
+
+
 ## In class assignments
 1. write a method to get the height of the binary tree
 2. write a method to find the leftmost node of the tree
