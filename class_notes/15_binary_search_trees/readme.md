@@ -285,4 +285,4 @@ int main() {
 Binary trees are a powerful data structure that can be used for efficient searching, sorting, and hierarchical data organization. Implementing binary trees in C++ is straightforward with the use of pointers and recursive functions for operations like insertion, traversal, and search.
 
 ## Practice Examples
-1. Add a function to the BST data structure to return the height of the BST. 
+  1. Find the lowest common ancestor of two values, you can assume the two values exist in the tree. The lowest common ancestor of two nodes is the lowest node that has both nodes as a descendant.
