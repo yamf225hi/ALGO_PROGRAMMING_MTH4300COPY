@@ -1,39 +1,5 @@
 #include<iostream>
 #include"binary_search_tree.h"
-#include<queue>
-
-void BFS(BinarySearchTree& t)
-{
-    std::queue<Node*> q;
-
-    if(t.getRoot())
-    {
-        std::cout<<t.getRoot()->data<<std::endl;
-        q.push(t.getRoot());
-    }
-    
-    int nodes_per_level = 1;
-    while(!q.empty())
-    {
-        for(int i=0;i<nodes_per_level;i++)
-        {
-            Node* n = q.front();
-            q.pop();
-            if(n->left)
-            {
-                std::cout <<" -> "<< n->left->data;
-                q.push(n->left);
-            }
-            if(n->right)
-            {
-                std::cout <<" -> "<< n->right->data;
-                q.push(n->right);
-            }
-        }
-        std::cout<<std::endl;
-        nodes_per_level=q.size();
-    }
-}
 
 
 int main()
@@ -50,9 +16,6 @@ int main()
     bst.insert(bst.getRoot(),10);
     bst.insert(bst.getRoot(),35);
 
-    std::cout<<"BFS: ";
-    BFS(bst);
-    std::cout<<std::endl;
-    std::cout<<"Height: "<<bst.getHeight(bst.getRoot());
+    std::cout<<"LCA: "<<bst.lowestCommonAncestor(bst.getRoot(),35,80)->data;
     return 0;
 }

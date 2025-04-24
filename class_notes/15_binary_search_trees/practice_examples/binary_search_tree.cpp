@@ -115,9 +115,13 @@ Node* BinarySearchTree::findMin(Node* start)
 }
 
 
-int BinarySearchTree::getHeight(Node* start)
+Node* BinarySearchTree::lowestCommonAncestor(Node* start, int val1, int val2)
 {
-    if(!start || (!start->left && !start->right)) return 0;
-
-    else return std::max(getHeight(start->left),getHeight(start->right))+1;
+    if(start->data < val1 && start->data < val2)    
+        return lowestCommonAncestor(start->right,val1,val2);
+        
+    else if (start->data > val1 && start->data > val2)
+        return lowestCommonAncestor(start->left, val1, val2);
+    
+    return start;
 }

@@ -28,7 +28,7 @@ class BinarySearchTree
         Node* search(int val);
         Node* deleteNode(Node* start, int val);
         Node* findMin(Node* start);
-        int getHeight(Node* start);
+        Node* lowestCommonAncestor(Node* start, int val1, int val2);
 
     private:
         void destroy(Node* curr_del);//helper function for destructor
