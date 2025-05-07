@@ -7,7 +7,7 @@ int nth_fib(int n)
     s.push(0);
     s.push(1);
 
-    for(int i; i<n-2;i++)
+    for(int i=0; i<n-1;i++)
     {
         int f_1 = s.top();
         s.pop();
@@ -22,6 +22,6 @@ int nth_fib(int n)
 
 int main()
 {
-    std::cout<<nth_fib(5)<<" "<<nth_fib(8)<<std::endl;
+    std::cout<<nth_fib(7)<<" "<<nth_fib(10)<<std::endl;
     return 0;
 }
