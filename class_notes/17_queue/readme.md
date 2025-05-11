@@ -6,18 +6,6 @@
 3. Practice Examples
 
 
-## Solution to in class assignments
-1. Write a program to implement a stack in C++ that checks if a given string of parentheses is balanced. A string is considered balanced if:
-   * Every opening parenthesis ```(,{,[``` has a corresponding and correctly placed closing parenthesis ```), }, ]```.
-   * Closing parentheses match the most recently opened parentheses.
-
-   You need to:
-   * Implement the stack manually using arrays or STL stack.
-   * Write a function bool isBalanced(string str) to check if a string is balanced.
-   * Test the function with sample inputs. [solution](./class_assignment_solutions/balanced_parenthesis.cpp)
-2. Solve the for the nth fibonacci number using a stack instead of recursion.[solution](./class_assignment_solutions/nth_fib.cpp)
-
-
 ## Queues
 In C++, queues are a type of container adapter provided by the Standard Template Library (STL). They are based on the First In, First Out (FIFO) principle, meaning elements are inserted at the back and removed from the front.
 
