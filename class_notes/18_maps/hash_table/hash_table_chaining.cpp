@@ -20,7 +20,8 @@ public:
     HashTable(int buckets) : numBuckets(buckets), table(buckets) {}
 
     // Insert a key-value pair
-    void insert(int key, const std::string &value) {
+    void insert(int key, const std::string &value) 
+    {
         int index = hashFunction(key);
         for (auto &pair : table[index]) {
             if (pair.first == key) {
@@ -32,7 +33,8 @@ public:
     }
 
     // Remove a key-value pair by key
-    void remove(int key) {
+    void remove(int key) 
+    {
         int index = hashFunction(key);
         auto &chain = table[index];
         for (auto it = chain.begin(); it != chain.end(); ++it) {
@@ -44,7 +46,8 @@ public:
     }
 
     // Search for a value by key
-    std::string search(int key) const {
+    std::string search(int key) const 
+    {
         int index = hashFunction(key);
         for (const auto &pair : table[index]) {
             if (pair.first == key) {

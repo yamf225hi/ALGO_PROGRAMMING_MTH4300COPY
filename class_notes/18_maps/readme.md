@@ -275,6 +275,37 @@ Index 9: -
 * **Hash Function Dependency:** Poor hash functions can lead to more collisions.
 
 
+## Strings as keys
+To use strings as keys in a hash table with open addressing (like in your C++ code), you need to:
+
+### 1. Convert Strings to Integers
+You need a string hash function that maps a string to an integer index.
+
+### 2. Example: Hash Function for Strings
+A simple and commonly used hash function for strings in C++:
+
+```cpp
+int hashFunction(const std::string &key) const {
+    unsigned long hash = 0;
+    for (char ch : key) {
+        hash = 31 * hash + ch; // Prime number multiplier (e.g., 31)
+    }
+    return hash % numBuckets;
+}
+```
+
+### 3. Update Table to Store std::string Keys
+Change the key type from int to std::string:
+
+```cpp
+std::vector<std::pair<std::string, std::string>> table;
+std::vector<bool> isOccupied;
+```
+
+### 4. Updated Insert/Search/Remove
+Now you're working with string keys, so functions like insert(key, value) and search(key) will use the string-based hash function and string comparisons.
+
+
 ## Maps
 In C++, std::unordered_map is a container from the Standard Template Library (STL) that stores key-value pairs in an unordered manner. Unlike std::map, which maintains elements in a sorted order, std::unordered_map uses a hash table to achieve faster lookups.
 
