@@ -1,3 +1,5 @@
+// WARNING CODE BEOW IS MISSING TOMBSTONING AND RESIZING OF HASH TABLE
+
 #include <iostream>
 #include <vector>
 #include <utility> // For std::pair
