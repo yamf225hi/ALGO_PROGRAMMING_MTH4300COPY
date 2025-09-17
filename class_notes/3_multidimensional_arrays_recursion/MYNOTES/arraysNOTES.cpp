@@ -1,44 +1,23 @@
 #include <iostream>
 using namespace std;
 
-
-// int main()
-{
-    int num;
-    cout<<"Enter a number: ";
-    cin>>num;
-
-    if(num%2==0 && num%3==0)
-    {
-        test_conditions(num);
-    }
-    else if(num%2==0 || num%3==0)
-    {
-        cout<<"(number is dividible by 2 or 3)";
-    }
-    else
-    {
-        cout<<"(number is not dividible by 2 or 3)";
-    }
-
+int main() {
+    int numbers[5] = {1, 2, 3, 4, 5};
+    int size = sizeof(numbers) / sizeof(numbers[0]);
+    cout << "Array size: " << size; // Outputs 5
     return 0;
 }
 
+//multidimensional arrays:
+/*it kinda looks like a matrix. the first number are the rows, the second number are the columns. */
+int matrix[3][3] = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+    };
+    //accessing elements or rather printing out the stuff:
+    cout << matrix[0][0]; // Outputs 1
+    cout << matrix[1][2]; // Outputs 6 
 
-
-void test_conditions(int num)
-{
-    if(num%2 ==0 && num%3==0)
-{
-cout<<"(number is dividible by 2 and 3)";
-
-    else if(num%3 ==0)
-{
-        cout<<"(number is dividible by 3 only)";
-
-    }
-    else 
-    {
-        cout<<"(number is not dividible by 2 or 3";
-    }
+    return 0;
 }
