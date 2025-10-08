@@ -6,7 +6,7 @@
 3. Dot operator
 4. Destructors
 5. Arrow Operator for Pointers
-6. 
+6. Compile time vs runtime for arrays
 7. Practice Examples
 
 ## Classes
