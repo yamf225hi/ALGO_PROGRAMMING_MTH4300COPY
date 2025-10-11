@@ -45,4 +45,8 @@
 *homeworks/hw3/
 *homeworks/hw4/
 *homeworks/hw5/
-*exam_review/
+*exam_review/.DS_Store
+.vscode/ # or be more specific if you need some settings
+*.o
+*.out
+*.exe
