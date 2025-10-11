@@ -1,7 +1,7 @@
 # Lecture Notes
 
 ## table of contents
-1. Classes 
+1. Classes
 2. Structs
 3. Practice Examples
 

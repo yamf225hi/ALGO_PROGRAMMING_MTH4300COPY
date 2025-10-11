@@ -1,4 +1,11 @@
 {
     "latex-workshop.docker.enabled": true,
     "latex-workshop.docker.image.latex": "ghcr.io/xu-cheng/texlive-full",
+    "terminal.integrated.cursorStyle": "block",
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.cursorStyleInactive": "outline",
+    "terminal.integrated.cursorWidth": 1,
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.fontWeightBold": "bold",
 }
