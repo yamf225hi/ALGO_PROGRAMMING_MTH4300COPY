@@ -351,64 +351,6 @@ int main() {
 }
 ```
 
-### Anonymous Namespaces
-An anonymous namespace is a namespace without a name. It makes its contents local to the file, effectively making them have internal linkage. This is useful when you want to limit the visibility of certain functions or variables to the current file.
-
-```cpp
-namespace {
-    int hiddenValue = 10;  // Only accessible within this file
-
-    void hiddenFunction() {
-        std::cout << "This function is only accessible in this file." << std::endl;
-    }
-}
-```
-
-### Nested Namespaces
-Namespaces can be nested within each other. To access members of a nested namespace, you need to use the fully qualified name:
-
-```cpp
-namespace Outer {
-    namespace Inner {
-        void display() {
-            std::cout << "Hello from Inner namespace!" << std::endl;
-        }
-    }
-}
-
-// Accessing a nested namespace
-int main() {
-    Outer::Inner::display();
-    return 0;
-}
-```
-
-### Inline Namespaces
-An inline namespace allows its members to be accessed as if they are part of the parent namespace. This is useful for versioning in libraries.
-
-```cpp
-namespace Library {
-    inline namespace v1 {
-        void function() {
-            std::cout << "Version 1" << std::endl;
-        }
-    }
-
-    namespace v2 {
-        void function() {
-            std::cout << "Version 2" << std::endl;
-        }
-    }
-}
-
-// Accessing functions from different versions
-int main() {
-    Library::function();       // Calls v1::function due to inline namespace
-    Library::v2::function();   // Calls v2::function explicitly
-    return 0;
-}
-```
-
 
 ### Why Use Namespaces?
 * Avoid Naming Conflicts: Namespaces help prevent name clashes, especially in large projects or when integrating third-party libraries.
