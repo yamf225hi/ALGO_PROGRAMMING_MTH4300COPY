@@ -1,12 +1,231 @@
 # Lecture notes
 
 ## table of contents
-1. Separation of Interface and Implementation
-2. Compilation of multifile with g++
-3. this keyword 
-4. The rest of object oriented which we will cover later
+1. this keyword 
+2. Big 5 
+3. Separation of Interface and Implementation
+4. Compilation of multifile with g++
+5. The rest of object oriented which we will cover later
 
 
+## this keyword
+In C++, the ```this``` keyword is a special pointer available inside non-static member functions of a class. It points to the current object (the instance of the class) for which the member function is called. The ```this``` pointer is implicitly passed to all non-static member functions of a class.
+
+### Characteristics of the this Pointer
+* Type of ```this```: The type of the this pointer is a pointer to the class type. For a class MyClass, the type of ```this``` is MyClass*.
+* Automatic Availability: The ```this``` pointer is automatically available in all non-static member functions; you don't need to declare or initialize it.
+* Cannot Modify: You cannot modify the ```this``` pointer itself, but you can use it to modify the object it points to.
+
+
+### Common Uses of the this Pointer
+#### Accessing Data Members
+The ```this``` pointer is used to access data members of the class when there is a name conflict between member variables and function parameters.
+
+```cpp
+#include <iostream>
+
+class MyClass {
+private:
+    int value;
+
+public:
+    // Constructor with parameter name same as member variable name
+    MyClass(int value) {
+        this->value = value;  // Use 'this' to distinguish member variable from parameter
+    }
+
+    void display() {
+        std::cout << "Value: " << this->value << std::endl;
+    }
+};
+
+int main() {
+    MyClass obj(10);
+    obj.display();  // Output: Value: 10
+    return 0;
+}
+```
+
+Explanation:<br>
+The ```this->value``` notation is used to differentiate between the member variable value and the parameter value.
+
+
+#### Returning the Object Itself
+The ```this``` pointer is often used in member functions that need to return the current object itself. This is particularly useful in method chaining.
+
+```cpp
+#include <iostream>
+
+class MyClass {
+private:
+    int value;
+
+public:
+    MyClass(int value) : value(value) {}
+
+    // Function that modifies the value and returns the current object
+    MyClass& setValue(int value) {
+        this->value = value;
+        return *this;  // Dereference the 'this' pointer to return the current object
+    }
+
+    void display() const {
+        std::cout << "Value: " << value << std::endl;
+    }
+};
+
+int main() {
+    MyClass obj(5);
+    obj.setValue(10).setValue(20);  // Method chaining using the 'this' pointer
+    obj.display();  // Output: Value: 20
+    return 0;
+}
+```
+
+Explanation:<br>
+The method setValue returns a reference to the current object (*this), which allows for chaining multiple method calls together.
+
+
+#### Avoiding Name Conflicts
+The ```this``` pointer helps in cases where a parameter has the same name as a member variable, preventing ambiguity.
+
+```cpp
+class Example {
+private:
+    int value;
+
+public:
+    Example(int value) { // Constructor parameter name matches the member variable name
+        this->value = value; // Uses 'this' to distinguish between member variable and parameter
+    }
+};
+```
+
+
+### this in Const Member Functions
+In const member functions, the this pointer has a slightly different type: it is a pointer to a const object. This means that the function cannot modify the object through the this pointer.
+
+```cpp
+class MyClass {
+private:
+    int value;
+
+public:
+    MyClass(int value) : value(value) {}
+
+    void display() const {  // Const member function
+        // 'this' pointer is of type 'const MyClass*' here
+        std::cout << "Value: " << this->value << std::endl;
+    }
+};
+```
+
+### Key Points about the this Pointer
+* Available in Non-static Member Functions: The ```this``` pointer is available in all non-static member functions of a class.
+* Points to the Current Object: It always points to the object that invoked the member function.
+* Cannot be Modified: You cannot change the value of the this pointer itself, although you can modify the object it points to.
+
+
+### When Not to Use this
+* In most cases, the use of ```this``` is optional when there is no name conflict between the member variables and function parameters.
+
+The ```this``` pointer is a powerful tool in C++ that provides direct access to the current object, allowing for more flexible and intuitive code design, especially in scenarios involving method chaining, self-referencing, and resolving name conflicts.
+
+
+## big 5
+###  What is the Rule of Five?
+In modern C++ (C++11 and later), if your class **manages resources** (like heap memory, file handles, sockets, etc.), you should define **five special member functions**. These ensure correct and efficient **copying** and **moving** of objects.
+
+### The Big Five (Special Member Functions)
+
+1. Copy Constructor
+   - Purpose: Defines how to **copy construct** from another object.
+   - Signature:
+     MyClass(const MyClass& other);
+
+2. Copy Assignment Operator
+   - Purpose: Defines how to **assign** from another object.
+   - Signature:
+     MyClass& operator=(const MyClass& other);
+
+3. Move Constructor
+   - Purpose: Allows ownership of resources to be **moved** instead of copied.
+   - Signature:
+     MyClass(MyClass&& other);
+
+4. Move Assignment Operator
+   - Purpose: Allows move **assignment** of resources.
+   - Signature:
+     MyClass& operator=(MyClass&& other);
+
+5. Destructor
+   - Purpose: Cleans up owned resources.
+   - Signature:
+     ~MyClass();
+
+If you define **any** of these manually, it's best to **define all five**, to avoid unexpected behavior (this is the "Rule of Five").
+
+###  What is `std::move`?
+
+- `std::move(obj)` **does not move anything** by itself.
+- It **casts** the object `obj` to an **rvalue reference**, which **enables move semantics**.
+- Use it when you want to **explicitly transfer ownership** of a resource.
+
+Example:
+MyClass a;
+MyClass b = std::move(a); // Calls move constructor
+
+Without `std::move`, the compiler treats `a` as an lvalue, and would call the **copy constructor** instead.
+
+###  Example Class with Rule of Five
+```c++
+class MyClass {
+private:
+    int* data;
+
+public:
+    // Constructor
+    MyClass(int val) : data(new int(val)) {}
+
+    // Copy Constructor
+    MyClass(const MyClass& other) : data(new int(*other.data)) {}
+
+    // Copy Assignment
+    MyClass& operator=(const MyClass& other) {
+        if (this != &other) {
+            delete data;
+            data = new int(*other.data);
+        }
+        return *this;
+    }
+
+    // Move Constructor
+    MyClass(MyClass&& other) noexcept : data(other.data) {
+        other.data = nullptr;
+    }
+
+    // Move Assignment
+    MyClass& operator=(MyClass&& other) noexcept {
+        if (this != &other) {
+            delete data;
+            data = other.data;
+            other.data = nullptr;
+        }
+        return *this;
+    }
+
+    // Destructor
+    ~MyClass() {
+        delete data;
+    }
+};
+```
+
+### Why Use `std::move` and Move Semantics?
+
+- Avoid **deep copies** and unnecessary allocations.
+- Essential for **performance** in modern C++ (e.g., returning large containers).
+- Used heavily in STL containers (e.g., `std::vector`, `std::map`).
 ## Separation of Implementation and Interface
 The concept of separating interface from implementation is a common practice in C++ programming. It involves organizing code into two distinct parts: interface (declarations) and implementation (definitions). This separation improves code clarity, maintainability, and reduces compile-time dependencies.
 
@@ -154,128 +373,6 @@ g++ file1.cpp file2.cpp -o output_executable
 * Object files can be reused, which speeds up recompilation.
 
 
-## this keyword
-In C++, the ```this``` keyword is a special pointer available inside non-static member functions of a class. It points to the current object (the instance of the class) for which the member function is called. The ```this``` pointer is implicitly passed to all non-static member functions of a class.
-
-### Characteristics of the this Pointer
-* Type of ```this```: The type of the this pointer is a pointer to the class type. For a class MyClass, the type of ```this``` is MyClass*.
-* Automatic Availability: The ```this``` pointer is automatically available in all non-static member functions; you don't need to declare or initialize it.
-* Cannot Modify: You cannot modify the ```this``` pointer itself, but you can use it to modify the object it points to.
-
-
-### Common Uses of the this Pointer
-#### Accessing Data Members
-The ```this``` pointer is used to access data members of the class when there is a name conflict between member variables and function parameters.
-
-```cpp
-#include <iostream>
-
-class MyClass {
-private:
-    int value;
-
-public:
-    // Constructor with parameter name same as member variable name
-    MyClass(int value) {
-        this->value = value;  // Use 'this' to distinguish member variable from parameter
-    }
-
-    void display() {
-        std::cout << "Value: " << this->value << std::endl;
-    }
-};
-
-int main() {
-    MyClass obj(10);
-    obj.display();  // Output: Value: 10
-    return 0;
-}
-```
-
-Explanation:<br>
-The ```this->value``` notation is used to differentiate between the member variable value and the parameter value.
-
-
-#### Returning the Object Itself
-The ```this``` pointer is often used in member functions that need to return the current object itself. This is particularly useful in method chaining.
-
-```cpp
-#include <iostream>
-
-class MyClass {
-private:
-    int value;
-
-public:
-    MyClass(int value) : value(value) {}
-
-    // Function that modifies the value and returns the current object
-    MyClass& setValue(int value) {
-        this->value = value;
-        return *this;  // Dereference the 'this' pointer to return the current object
-    }
-
-    void display() const {
-        std::cout << "Value: " << value << std::endl;
-    }
-};
-
-int main() {
-    MyClass obj(5);
-    obj.setValue(10).setValue(20);  // Method chaining using the 'this' pointer
-    obj.display();  // Output: Value: 20
-    return 0;
-}
-```
-
-Explanation:<br>
-The method setValue returns a reference to the current object (*this), which allows for chaining multiple method calls together.
-
-
-#### Avoiding Name Conflicts
-The ```this``` pointer helps in cases where a parameter has the same name as a member variable, preventing ambiguity.
-
-```cpp
-class Example {
-private:
-    int value;
-
-public:
-    Example(int value) { // Constructor parameter name matches the member variable name
-        this->value = value; // Uses 'this' to distinguish between member variable and parameter
-    }
-};
-```
-
-
-### this in Const Member Functions
-In const member functions, the this pointer has a slightly different type: it is a pointer to a const object. This means that the function cannot modify the object through the this pointer.
-
-```cpp
-class MyClass {
-private:
-    int value;
-
-public:
-    MyClass(int value) : value(value) {}
-
-    void display() const {  // Const member function
-        // 'this' pointer is of type 'const MyClass*' here
-        std::cout << "Value: " << this->value << std::endl;
-    }
-};
-```
-
-### Key Points about the this Pointer
-* Available in Non-static Member Functions: The ```this``` pointer is available in all non-static member functions of a class.
-* Points to the Current Object: It always points to the object that invoked the member function.
-* Cannot be Modified: You cannot change the value of the this pointer itself, although you can modify the object it points to.
-
-
-### When Not to Use this
-* In most cases, the use of ```this``` is optional when there is no name conflict between the member variables and function parameters.
-
-The ```this``` pointer is a powerful tool in C++ that provides direct access to the current object, allowing for more flexible and intuitive code design, especially in scenarios involving method chaining, self-referencing, and resolving name conflicts.
 
 
 ## The rest of object oriented which we will cover later
