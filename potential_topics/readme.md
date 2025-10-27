@@ -7,6 +7,7 @@
 * stringstreams(add to files)
 * random with random_device
 * templates
+* commmand line arguments
 
 
 # current 
