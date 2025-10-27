@@ -209,7 +209,7 @@ public:
     }
 
     // Move Assignment
-    MyClass& operator=(MyClass&& other) noexcept {
+    MyClass& operator=(MyClass&& other) {
         if (this != &other) {
             delete data;
             data = other.data;
@@ -232,9 +232,99 @@ public:
 - Used heavily in STL containers (e.g., `std::vector`, `std::map`).
 
 
+###  Why to return *this in copy and move assignment ?
+You return *this from an assignment operator so the function can return a reference to the assigned object, allowing chaining like:
+
+a = b = c;
+
+
+Here, b = c returns a reference to b, so a = (b = c) works correctly.
+Without returning *this, chaining assignments wouldn’t compile or behave as expected.
 
 ### Shallow Copy vs Deep Copy
-Something to take note of, is when you do not define any of the big 5, the c++ compiler will write them for you. If you do not use any dynamic memory, these will work just fine because they perform a shallow copy. However, if you use dynamic memory a deep copy will be required.  
+* **Shallow copy:** Copies an object's member values directly, so pointers or references still point to the same memory as the original.
+
+* **Deep copy:** Creates a new, independent copy of all dynamically allocated or referenced data, so the new object owns its own resources.
+
+Something to take note of, is when you do not define any of the big 5, the c++ compiler will write them for you. If you do not use any dynamic memory, these will work just fine because they perform a shallow copy. However, if you use dynamic memory a deep copy will be required. Below, is an example of how the compiler would implement the big 5 and you can see hows wrong.
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Example {
+    int id;       // built-in type
+    string name;  // has its own copy/move semantics
+    int* arr;     // raw pointer to dynamic data
+
+    // --- Regular constructor ---
+    Example(int i, string n)
+        : id(i), name(move(n)) {
+        arr = new int[3]{i, i + 1, i + 2};
+        cout << "Constructor\n";
+    }
+
+    // --- Copy constructor (what the compiler would do by default) ---
+    Example(const Example& other)
+        : id(other.id),
+          name(other.name),
+          arr(other.arr)   // shallow copy — both point to same array
+    {
+        cout << "Copy constructor (default)\n";
+    }
+
+    // --- Move constructor (compiler-generated pattern) ---
+    Example(Example&& other)
+        : id(move(other.id)),
+          name(move(other.name)),
+          arr(other.arr)   // shallow move of pointer
+    {
+        other.arr = nullptr; // compiler doesn't do this, we add it for safety
+        cout << "Move constructor (default-like)\n";
+    }
+
+    // --- Copy assignment ---
+    Example& operator=(const Example& other) {
+        cout << "Copy assignment (default)\n";
+        if (this != &other) {
+            id = other.id;
+            name = other.name;
+            arr = other.arr; // shallow copy again
+        }
+        return *this;
+    }
+
+    // --- Move assignment ---
+    Example& operator=(Example&& other) {
+        cout << "Move assignment (default-like)\n";
+        if (this != &other) {
+            id = move(other.id);
+            name = move(other.name);
+            arr = other.arr;
+            other.arr = nullptr; // manual cleanup
+        }
+        return *this;
+    }
+
+    // --- Destructor ---
+    ~Example() {
+        cout << "Destructor\n";
+        delete[] arr;
+    }
+};
+
+int main() {
+    Example a(1, "A");
+    Example b = a;             // Copy constructor
+    Example c = move(a);       // Move constructor
+    b = c;                     // Copy assignment
+    c = move(b);               // Move assignment
+}
+
+```
+
 
 
 ## Separation of Implementation and Interface
@@ -474,10 +564,11 @@ public:
 In summary, Object-Oriented Programming in C++ is all about creating modular code using classes and objects that represent real-world entities. It leverages principles like encapsulation, inheritance, polymorphism, and abstraction to build robust and scalable software.
 
 
-## asignment
+## In Class Assignment
 1. Write a class for an array of doubles, that starts off with a capacity of 1, but can grow as you add elements and name it "Vector". 
     * Include an insert method that takes an integer position, and a double element as parameters, and inserts element in the array at that position.
     * Include an erase method that takes an integer position, and deletes the element in the array at that position.
-    * Make sure to write the big 5
+    * Write the big 5
     * Overload [] operator to print the element at a given position in the array. Signature ```int operator[](const int position)``` 
-    * Overload << operator to print the Vector object(all the elements in the array)  
+    * Overload << operator to print the Vector object(all the elements in the array) 
+    * Separate interface and implementation 

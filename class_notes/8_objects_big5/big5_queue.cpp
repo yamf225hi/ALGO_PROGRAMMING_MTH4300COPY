@@ -31,11 +31,14 @@ public:
     Queue& operator=(const Queue &rhs) //copy assignment operator
     {
         cout<<"copy assignment called "<<endl;
-        size_ = rhs.size_;
-        capacity_ = rhs.capacity_;
-        delete[] data_; // clear what was there before
-        data_ = new string[capacity_];
-        for(int i =0;i<size_;i++)   data_[i]=rhs.data_[i];
+        if (this != &rhs) 
+        {
+            size_ = rhs.size_;
+            capacity_ = rhs.capacity_;
+            delete[] data_; // clear what was there before
+            data_ = new string[capacity_];
+            for(int i =0;i<size_;i++)   data_[i]=rhs.data_[i];
+        }
         return *this;
     }
 
@@ -57,16 +60,18 @@ public:
     Queue& operator=(Queue &&rhs) //move assignment operator
     {
         cout<<"move assignment called"<<endl;
-        size_ = rhs.size_;
-        capacity_ = rhs.capacity_;
-        delete[] data_; // clear what was there before
-        data_ = rhs.data_;
+        if (this != &rhs)
+        {
+            size_ = rhs.size_;
+            capacity_ = rhs.capacity_;
+            delete[] data_; // clear what was there before
+            data_ = rhs.data_;
 
-        // must delete cause you want to rid the data of rhs object
-        rhs.size_=0;
-        rhs.capacity_=1;
-        rhs.data_=new string[rhs.capacity_];
-
+            // must delete cause you want to rid the data of rhs object
+            rhs.size_=0;
+            rhs.capacity_=1;
+            rhs.data_=new string[rhs.capacity_];
+        }
         return *this;
     }
 
@@ -158,21 +163,20 @@ int main()
     q1.push("Chris");
     q1.push("Jenn");
 
-    Queue q2(q1); // copy constructor called
-    q1.pop();
-    //Queue q2(move(q1)); // move constructor called
-
+    //Queue q2(q1); // copy constructor called
+    // Queue q2(move(q1)); // move constructor called
+    // q1.pop();
     
-    // Queue q2;
-    // q2.push("Tim");
-    // q2.push("Kenny");
-    // q2.push("Beatriz");
-    // cout<<"BEFORE CHANGES!!"<<endl;
-    // cout<<"q1(front, back): " << "("<<q1.front()<<", "<<q1.back()<<")"<<endl;
-    // cout<<"q2(front, back): " << "("<<q2.front()<<", "<<q2.back()<<")"<<endl;
+    Queue q2;
+    q2.push("Tim");
+    q2.push("Kenny");
+    q2.push("Beatriz");
+    cout<<"BEFORE CHANGES!!"<<endl;
+    cout<<"q1(front, back): " << "("<<q1.front()<<", "<<q1.back()<<")"<<endl;
+    cout<<"q2(front, back): " << "("<<q2.front()<<", "<<q2.back()<<")"<<endl;
 
-    // //q2=q1; //copy assignment
-    // q2=move(q1);//move assignment
+    q2=q1; //copy assignment
+    //q2=move(q2);//move assignment
 
     cout<<"AFTER CHANGES!!"<<endl;
     cout<<"q1(front, back): " << "("<<q1.front()<<", "<<q1.back()<<")"<<endl;
