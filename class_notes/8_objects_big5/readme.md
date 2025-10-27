@@ -278,7 +278,8 @@ private:
 Explanation:<br>
 The header file defines the interface of the Rectangle class.
 It contains declarations of the constructor, member functions, and private member variables.
-The use of include guards (#ifndef, #define, #endif) prevents multiple inclusions of the same header file.
+The use of include guards (#ifndef, #define, #endif) prevents multiple inclusions of the same header file and avoids redefinition errors.
+Alternatively, you can also use #pragma once see [square.h](./rectangle/square.h)
 
 
 #### Step 2: Create the Source File (Rectangle.cpp)
@@ -359,8 +360,6 @@ The C++ Standard Library uses this separation extensively. For example, when you
 * Loose Coupling: Aim to keep the implementation and interface loosely coupled to facilitate easier updates and maintenance.
 * Separating interface and implementation in C++ is a fundamental design practice that leads to more modular, maintainable, and efficient code. It supports better software architecture principles by clearly defining what each component does without exposing the details of how it does it.
 
-
-### Example of redefinition error by including include statements circularly without header guards
 
 
 ## Compilation of multifile with g++

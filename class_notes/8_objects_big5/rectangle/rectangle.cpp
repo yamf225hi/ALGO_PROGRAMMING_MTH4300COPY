@@ -1,4 +1,3 @@
-// Rectangle.cpp
 #include<iostream>
 #include "rectangle.h"
 

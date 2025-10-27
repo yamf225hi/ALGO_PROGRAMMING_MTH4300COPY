@@ -1,7 +1,5 @@
-// Square.cpp
 #include<iostream>
 #include "square.h"
-
 
 
 // Constructor definition
