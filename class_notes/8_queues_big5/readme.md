@@ -8,7 +8,7 @@
 5. Compilation of multifile with g++
 6. Object oriented covered so far
 7. Object oriented we will cover
-8. In Class Assignment
+8. Practice Examples
 
 
 ## this keyword
@@ -596,7 +596,7 @@ public:
 In summary, Object-Oriented Programming in C++ is all about creating modular code using classes and objects that represent real-world entities. It leverages principles like encapsulation, inheritance, polymorphism, and abstraction to build robust and scalable software.
 
 
-## In Class Assignment
+## Practice Examples
 1. Write a class for an array of doubles, that starts off with a capacity of 1, but can grow as you add elements and name it "Vector". 
     * Include an insert method that takes an integer position, and a double element as parameters, and inserts element in the array at that position.
     * Include an erase method that takes an integer position, and deletes the element in the array at that position.
