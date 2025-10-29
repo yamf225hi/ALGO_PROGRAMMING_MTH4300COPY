@@ -2,10 +2,13 @@
 
 ## table of contents
 1. this keyword 
-2. Big 5 
-3. Separation of Interface and Implementation
-4. Compilation of multifile with g++
-5. The rest of object oriented which we will cover later
+2. Queues
+3. Big 5 
+4. Separation of Interface and Implementation
+5. Compilation of multifile with g++
+6. Object oriented covered so far
+7. Object oriented we will cover
+8. Practice Examples
 
 
 ## this keyword
@@ -132,6 +135,37 @@ public:
 The ```this``` pointer is a powerful tool in C++ that provides direct access to the current object, allowing for more flexible and intuitive code design, especially in scenarios involving method chaining, self-referencing, and resolving name conflicts.
 
 
+## Queues
+In C++, queues are a type of container adapter provided by the Standard Template Library (STL). They are based on the First In, First Out (FIFO) principle, meaning elements are inserted at the back and removed from the front.
+
+### Key Characteristics of a Queue
+* **FIFO Principle:** The first element added to the queue is the first one to be removed.
+* **Restricted Access:**
+  * Elements can only be added at the back.
+  * Elements can only be removed from the front.
+* **Underlying Container:**
+  * The ```queue``` container adapter is implemented using either a deque or a list as the underlying container.
+
+### Queue Operations
+The ```std::queue``` class is defined in the ```<queue>``` header. Below are the primary operations provided:
+
+### Common Methods
+| Operation | Description                                  | Example                 |
+|-----------|----------------------------------------------|-------------------------|
+| push()    | Adds an element to the back of the queue.    | q.push(10);             |
+| pop()     | Removes the front element of the queue.      | q.pop();                |
+| front()   | Returns a reference to the front element.    | std::cout << q.front(); |
+| back()    | Returns a reference to the last element.     | std::cout << q.back();  |
+| empty()   | Checks if the queue is empty.                | if(q.empty()) { ... }   |
+| size()    | Returns the number of elements in the queue. | std::cout << q.size();  |
+
+
+### Real-World Use Cases
+* **Task Scheduling:** Managing tasks where the first task added is processed first.
+* **Print Queue:** Sending print jobs to a printer in the order they were received.
+* **Breadth-First Search (BFS) in Graphs:** To explore nodes level by level.
+
+
 ## big 5
 ###  What is the Rule of Five?
 In modern C++ (C++11 and later), if your class **manages resources** (like heap memory, file handles, sockets, etc.), you should define **five special member functions**. These ensure correct and efficient **copying** and **moving** of objects.
@@ -164,6 +198,8 @@ In modern C++ (C++11 and later), if your class **manages resources** (like heap 
      ~MyClass();
 
 If you define **any** of these manually, it's best to **define all five**, to avoid unexpected behavior (this is the "Rule of Five").
+Otherwise, if no dynamic memory is used, don't define any (rule of zero).
+
 
 ###  What is `std::move`?
 
@@ -205,7 +241,7 @@ public:
     }
 
     // Move Assignment
-    MyClass& operator=(MyClass&& other) noexcept {
+    MyClass& operator=(MyClass&& other) {
         if (this != &other) {
             delete data;
             data = other.data;
@@ -226,6 +262,103 @@ public:
 - Avoid **deep copies** and unnecessary allocations.
 - Essential for **performance** in modern C++ (e.g., returning large containers).
 - Used heavily in STL containers (e.g., `std::vector`, `std::map`).
+
+
+###  Why to return *this in copy and move assignment ?
+You return *this from an assignment operator so the function can return a reference to the assigned object, allowing chaining like:
+
+a = b = c;
+
+
+Here, b = c returns a reference to b, so a = (b = c) works correctly.
+Without returning *this, chaining assignments wouldn’t compile or behave as expected.
+
+### Shallow Copy vs Deep Copy
+* **Shallow copy:** Copies an object's member values directly, so pointers or references still point to the same memory as the original.
+
+* **Deep copy:** Creates a new, independent copy of all dynamically allocated or referenced data, so the new object owns its own resources.
+
+Something to take note of, is when you do not define any of the big 5, the c++ compiler will write them for you. If you do not use any dynamic memory, these will work just fine because they perform a shallow copy. However, if you use dynamic memory a deep copy will be required. Below, is an example of how the compiler would implement the big 5 and you can see hows wrong.
+
+```cpp
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Example {
+    int id;       // built-in type
+    string name;  // has its own copy/move semantics
+    int* arr;     // raw pointer to dynamic data
+
+    // --- Regular constructor ---
+    Example(int i, string n)
+        : id(i), name(move(n)) {
+        arr = new int[3]{i, i + 1, i + 2};
+        cout << "Constructor\n";
+    }
+
+    // --- Copy constructor (what the compiler would do by default) ---
+    Example(const Example& other)
+        : id(other.id),
+          name(other.name),
+          arr(other.arr)   // shallow copy — both point to same array
+    {
+        cout << "Copy constructor (default)\n";
+    }
+
+    // --- Move constructor (compiler-generated pattern) ---
+    Example(Example&& other)
+        : id(move(other.id)),
+          name(move(other.name)),
+          arr(other.arr)   // shallow move of pointer
+    {
+        other.arr = nullptr; // compiler doesn't do this, we add it for safety
+        cout << "Move constructor (default-like)\n";
+    }
+
+    // --- Copy assignment ---
+    Example& operator=(const Example& other) {
+        cout << "Copy assignment (default)\n";
+        if (this != &other) {
+            id = other.id;
+            name = other.name;
+            arr = other.arr; // shallow copy again
+        }
+        return *this;
+    }
+
+    // --- Move assignment ---
+    Example& operator=(Example&& other) {
+        cout << "Move assignment (default-like)\n";
+        if (this != &other) {
+            id = move(other.id);
+            name = move(other.name);
+            arr = other.arr;
+            other.arr = nullptr; // manual cleanup
+        }
+        return *this;
+    }
+
+    // --- Destructor ---
+    ~Example() {
+        cout << "Destructor\n";
+        delete[] arr;
+    }
+};
+
+int main() {
+    Example a(1, "A");
+    Example b = a;             // Copy constructor
+    Example c = move(a);       // Move constructor
+    b = c;                     // Copy assignment
+    c = move(b);               // Move assignment
+}
+
+```
+
+
+
 ## Separation of Implementation and Interface
 The concept of separating interface from implementation is a common practice in C++ programming. It involves organizing code into two distinct parts: interface (declarations) and implementation (definitions). This separation improves code clarity, maintainability, and reduces compile-time dependencies.
 
@@ -267,7 +400,8 @@ private:
 Explanation:<br>
 The header file defines the interface of the Rectangle class.
 It contains declarations of the constructor, member functions, and private member variables.
-The use of include guards (#ifndef, #define, #endif) prevents multiple inclusions of the same header file.
+The use of include guards (#ifndef, #define, #endif) prevents multiple inclusions of the same header file and avoids redefinition errors.
+Alternatively, you can also use #pragma once see [square.h](./rectangle/square.h)
 
 
 #### Step 2: Create the Source File (Rectangle.cpp)
@@ -349,6 +483,7 @@ The C++ Standard Library uses this separation extensively. For example, when you
 * Separating interface and implementation in C++ is a fundamental design practice that leads to more modular, maintainable, and efficient code. It supports better software architecture principles by clearly defining what each component does without exposing the details of how it does it.
 
 
+
 ## Compilation of multifile with g++
 To compile a multi-file C++ program using g++, follow these steps:
 
@@ -374,8 +509,7 @@ g++ file1.cpp file2.cpp -o output_executable
 
 
 
-
-## The rest of object oriented which we will cover later
+## object oriented covered so far
 Object-Oriented Programming (OOP) in C++ is a programming paradigm that uses the concept of objects to design and structure software. It focuses on grouping related data (attributes) and functions (methods) into entities called classes, which serve as blueprints for creating objects. The key principles of OOP in C++ are(classes and objects, encapsulation, inheritance, polymorphism, abstraction):
 
 ### Classes and Objects:
@@ -404,6 +538,8 @@ public:
 };
 ```
 
+
+## object oriented which we will cover later
 ### Inheritance:
 Inheritance allows a new class (derived class) to inherit attributes and methods from an existing class (base class).
 This promotes code reuse and creates a relationship between classes, where the derived class extends or specializes the behavior of the base class.
@@ -450,6 +586,7 @@ public:
 };
 ```
 
+
 ### Key Benefits of OOP in C++
 * Modularity: Code is organized into classes, making it easier to manage, modify, and reuse.
 * Reusability: Through inheritance, common functionality can be shared between classes.
@@ -457,3 +594,13 @@ public:
 * Maintainability: Encapsulation and abstraction reduce complexity, making the code easier to understand and maintain.
 
 In summary, Object-Oriented Programming in C++ is all about creating modular code using classes and objects that represent real-world entities. It leverages principles like encapsulation, inheritance, polymorphism, and abstraction to build robust and scalable software.
+
+
+## Practice Examples
+1. Write a class for an array of doubles, that starts off with a capacity of 1, but can grow as you add elements and name it "Vector". 
+    * Include an insert method that takes an integer position, and a double element as parameters, and inserts element in the array at that position.
+    * Include an erase method that takes an integer position, and deletes the element in the array at that position.
+    * Write the big 5
+    * Overload [] operator to print the element at a given position in the array. Signature ```int operator[](const int position)``` 
+    * Overload << operator to print the Vector object(all the elements in the array) 
+    * Separate interface and implementation 

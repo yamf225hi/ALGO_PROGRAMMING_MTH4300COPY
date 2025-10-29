@@ -5,14 +5,7 @@
 2. Practice Examples
 
 
-## Stacks
-A **stack** is a linear data structure that follows the **LIFO** (Last In, First Out) principle, meaning the last element added to the stack is the first one to be removed. It can be visualized as a collection of items stacked on top of each other, where only the topmost item can be accessed or removed.
 
-### Key Operations of a Stack:
-* **Push:** Adds an element to the top of the stack.
-* **Pop:** Removes the element from the top of the stack.
-* **Peek (or Top):** Retrieves the top element without removing it.
-* **isEmpty:** Checks if the stack is empty.
 
 ### Stack Implementation in C++
 A stack can be implemented in C++ using:
@@ -203,16 +196,7 @@ int main() {
 }
 ```
 
-### Advantages of a Stack:
-* Simplicity: Ideal for solving problems like reversing a string or validating parentheses.
-* Efficient: Push and pop operations are O(1).
-* Useful in algorithms like depth-first search, function call stacks, etc.
 
-### Applications of a Stack:
-* **Expression Evaluation:** Parsing and evaluating expressions (e.g., postfix evaluation).
-* **Undo Mechanism:** Used in text editors for undo operations.
-* **Recursion:** Call stack in programming.
-* **Depth-First Search (DFS):** Used in graph and tree traversal algorithms.
 
 ## Practice Examples
 1. Write a program to implement a stack in C++ that checks if a given string of parentheses is balanced. A string is considered balanced if:

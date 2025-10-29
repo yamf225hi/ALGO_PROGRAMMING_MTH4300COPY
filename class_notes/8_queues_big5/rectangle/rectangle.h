@@ -1,6 +1,5 @@
-// Rectangle.h
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+// #ifndef RECTANGLE_H
+// #define RECTANGLE_H
 
 class Rectangle {
 public:
@@ -15,4 +14,4 @@ private:
     double height;
 };
 
-#endif // RECTANGLE_H
+//#endif // RECTANGLE_H
