@@ -7,14 +7,12 @@ using namespace std;
 
 Stack::Stack() : size_(0), capacity_(1) // Constructor
 {
-    cout<<"constructor called"<<endl;
     data_ = new string[capacity_];  // Allocate memory for 1 element
 }
 
 
 Stack::Stack(const Stack& other)//copy constuctor
 {
-    cout<<"copy constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_ = new string[capacity_];
@@ -24,7 +22,6 @@ Stack::Stack(const Stack& other)//copy constuctor
 
 Stack& Stack::operator=(const Stack &rhs) //copy assignment operator
 {
-    cout<<"copy assignment called "<<endl;
     if (this != &rhs) 
     {
         size_ = rhs.size_;
@@ -39,7 +36,6 @@ Stack& Stack::operator=(const Stack &rhs) //copy assignment operator
 
 Stack::Stack(Stack&& other)//move constuctor
 {
-    cout<<"move constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_=other.data_;
@@ -53,7 +49,6 @@ Stack::Stack(Stack&& other)//move constuctor
 
 Stack& Stack::operator=(Stack &&rhs) //move assignment operator
 {
-    cout<<"move assignment called"<<endl;
     if (this != &rhs)
     {
         size_ = rhs.size_;
@@ -73,7 +68,6 @@ Stack& Stack::operator=(Stack &&rhs) //move assignment operator
 // Destructor
 Stack::~Stack()
 {
-    cout<<"destructor called"<<endl;
     delete[] data_;  // Free dynamically allocated memory
 }
 

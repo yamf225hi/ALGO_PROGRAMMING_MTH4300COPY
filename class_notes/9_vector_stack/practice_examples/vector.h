@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include<string>
+
+using namespace std; 
 
 class Vector 
 {
@@ -24,5 +27,5 @@ public:
     void insert(const size_t index, const string& value);
     void erase(const size_t index);
     
-    friend std::ostream& operator<<(std::ostream& os, Vector vec);
+    friend std::ostream& operator<<(ostream& os, const Vector& vec);
 };

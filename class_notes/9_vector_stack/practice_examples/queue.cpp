@@ -7,14 +7,12 @@ using namespace std;
 
 Queue::Queue() : size_(0), capacity_(1) // Constructor
 {
-    cout<<"constructor called"<<endl;
     data_ = new string[capacity_];  // Allocate memory for 1 element
 }
 
 
 Queue::Queue(const Queue& other)//copy constuctor
 {
-    cout<<"copy constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_ = new string[capacity_];
@@ -24,7 +22,6 @@ Queue::Queue(const Queue& other)//copy constuctor
 
 Queue& Queue::operator=(const Queue &rhs) //copy assignment operator
 {
-    cout<<"copy assignment called "<<endl;
     if (this != &rhs) 
     {
         size_ = rhs.size_;
@@ -39,7 +36,6 @@ Queue& Queue::operator=(const Queue &rhs) //copy assignment operator
 
 Queue::Queue(Queue&& other)//move constuctor
 {
-    cout<<"move constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_=other.data_;
@@ -53,7 +49,6 @@ Queue::Queue(Queue&& other)//move constuctor
 
 Queue& Queue::operator=(Queue &&rhs) //move assignment operator
 {
-    cout<<"move assignment called"<<endl;
     if (this != &rhs)
     {
         size_ = rhs.size_;
@@ -73,7 +68,6 @@ Queue& Queue::operator=(Queue &&rhs) //move assignment operator
 // Destructor
 Queue::~Queue()
 {
-    cout<<"destructor called"<<endl;
     delete[] data_;  // Free dynamically allocated memory
 }
 

@@ -1,18 +1,18 @@
 #include<iostream>
+#include<string>
 #include"vector.h"
 
 using namespace std;
 
 
-Vector::Vector() : size_(0), capacity_(1), data_(new string[capacity_])
-{
-    data_ = new string[capacity_];  
+Vector::Vector() : size_(0), capacity_(1)
+{ 
+    data_=new string[capacity_]; 
 }
 
 
 Vector::Vector(const Vector& other)
 {
-    cout<<"copy constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_ = new string[capacity_];
@@ -22,7 +22,6 @@ Vector::Vector(const Vector& other)
 
 Vector::Vector(Vector&& other)
 {
-    cout<<"move constructor called"<<endl;
     size_ = other.size_;
     capacity_ = other.capacity_;
     data_=other.data_;
@@ -35,7 +34,6 @@ Vector::Vector(Vector&& other)
 
 Vector& Vector::operator=(const Vector &rhs)
 {
-    cout<<"copy assignment called "<<endl;
     if (this != &rhs) 
     {
         size_ = rhs.size_;
@@ -50,7 +48,6 @@ Vector& Vector::operator=(const Vector &rhs)
 
 Vector& Vector::operator=(Vector &&rhs) //move assignment operator
 {
-    cout<<"move assignment called"<<endl;
     if (this != &rhs)
     {
         size_ = rhs.size_;
@@ -68,14 +65,13 @@ Vector& Vector::operator=(Vector &&rhs) //move assignment operator
 
 Vector::~Vector()
 {
-    cout<<"destructor called"<<endl;
     delete[] data_;  
 }
 
 
 string& Vector::operator[](size_t index) 
 {
-    if (index >= size_) cout<<"Index out of range";
+    if (index >= size_) cout<<"Index out of range"<<endl;
     return data_[index];
 }
 
@@ -110,6 +106,7 @@ void Vector::insert(const size_t index, const string& value)
 
     for(size_t i=size_; i>index; i--)   data_[i]=data_[i-1];
 
+    data_[index]=value;
     size_++;
 }
 
@@ -127,8 +124,10 @@ void Vector::erase(const size_t index)
 }
 
 
-ostream& operator<<(std::ostream& os, Vector vec)
+ostream& operator<<(std::ostream& os, const Vector& vec)
 {
-    for(size_t i =0; i < vec.size_; i++)    cout<<vec.data_[i]<<", ";
-    cout<<endl;
+    for(size_t i =0; i < vec.size_; i++)    os<<vec.data_[i]<<", ";
+    os<<endl;
+
+    return os;
 }
