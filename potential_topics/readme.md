@@ -1,7 +1,15 @@
 # Integrate these topics
-* B-trees 
-* Binary search Avl trees
 * backtracking(midpoint assessment example with chess)
-* C++: exception handling, streams
+* exception handling
 * sorting 
 * testing and unit testing
+* numeric limits
+* stringstreams(add to files)
+* random with random_device
+* templates
+* commmand line arguments
+* stl
+
+
+# current 
+* friend overload

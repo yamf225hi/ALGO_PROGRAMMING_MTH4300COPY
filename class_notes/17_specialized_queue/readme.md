@@ -1,34 +1,8 @@
 # Lecture notes
 
 ## table of contents
-1. Queues
-2. Breadth First Search on Binary Search Trees
-3. Practice Examples
-
-
-## Queues
-In C++, queues are a type of container adapter provided by the Standard Template Library (STL). They are based on the First In, First Out (FIFO) principle, meaning elements are inserted at the back and removed from the front.
-
-### Key Characteristics of a Queue
-* **FIFO Principle:** The first element added to the queue is the first one to be removed.
-* **Restricted Access:**
-  * Elements can only be added at the back.
-  * Elements can only be removed from the front.
-* **Underlying Container:**
-  * The ```queue``` container adapter is implemented using either a deque or a list as the underlying container.
-
-### Queue Operations
-The ```std::queue``` class is defined in the ```<queue>``` header. Below are the primary operations provided:
-
-### Common Methods
-| Operation | Description                                  | Example                 |
-|-----------|----------------------------------------------|-------------------------|
-| push()    | Adds an element to the back of the queue.    | q.push(10);             |
-| pop()     | Removes the front element of the queue.      | q.pop();                |
-| front()   | Returns a reference to the front element.    | std::cout << q.front(); |
-| back()    | Returns a reference to the last element.     | std::cout << q.back();  |
-| empty()   | Checks if the queue is empty.                | if(q.empty()) { ... }   |
-| size()    | Returns the number of elements in the queue. | std::cout << q.size();  |
+1. Breadth First Search on Binary Search Trees
+2. Practice Examples
 
 
 ### Example: Using std::queue
@@ -66,10 +40,6 @@ int main() {
 }
 ```
 
-### Real-World Use Cases
-* **Task Scheduling:** Managing tasks where the first task added is processed first.
-* **Print Queue:** Sending print jobs to a printer in the order they were received.
-* **Breadth-First Search (BFS) in Graphs:** To explore nodes level by level.
 
 ### Specialized Queues
 * **Priority Queue:** A variant where elements are removed based on priority instead of FIFO. Implemented using std::priority_queue.

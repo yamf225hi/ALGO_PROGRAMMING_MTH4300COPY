@@ -1,77 +1,15 @@
 # Lecture notes
 
 ## table of contents
-1. Links
-2. Vector Template Class
+1. Vectors
+2. Stacks
 3. Practice Examples
 
-## Links 
-1. [https://cplusplus.com/reference/vector/vector/](https://cplusplus.com/reference/vector/vector/)
 
 
-## Vector Template Class
-A ```C++``` ```vector``` is a dynamic array that can grow or shrink in size. It is part of the Standard Template Library (STL) and is implemented as a template class to allow storage of any data type. Let's break down how a ```vector``` works as a template class and what its key components are.
+## Vector Class
+A ```C++``` ```vector``` is a dynamic array that can grow or shrink in size. Let's break down how a ```vector``` works as a class and what its key components are.
 
-### Template Class Overview
-A ```template``` in C++ allows you to create generic classes or functions that can operate with any data type. The ```vector``` class is written as a template so that it can hold elements of any type (e.g., ```int```, ```double```, ```std::string```, or even user-defined types).
-
-Here's a simplified example of a template class for a ```vector```:
-
-```cpp
-#include <iostream>
-
-template <typename T>
-class MyVector {
-private:
-    T* data;          // Pointer to dynamically allocated array
-    size_t size;      // Number of elements currently in the vector
-    size_t capacity;  // Capacity of the vector (how many elements it can hold)
-
-public:
-    // Constructor
-    MyVector() : size(0), capacity(1) {
-        data = new T[capacity];  // Allocate memory for 1 element
-    }
-
-    // Destructor
-    ~MyVector() {
-        delete[] data;  // Free dynamically allocated memory
-    }
-
-    // Method to add an element
-    void push_back(const T& value) {
-        if (size == capacity) {
-            resize();  // Resize if capacity is reached
-        }
-        data[size] = value;
-        size++;
-    }
-
-    // Method to access elements
-    T& operator[](size_t index) {
-        if (index >= size) throw std::out_of_range("Index out of range");
-        return data[index];
-    }
-
-    // Method to get the size of the vector
-    size_t getSize() const { return size; }
-
-private:
-    // Helper method to resize the vector when capacity is reached
-    void resize() {
-        capacity *= 2;  // Double the capacity
-        T* newData = new T[capacity];  // Allocate larger array
-
-        // Copy old data to new array
-        for (size_t i = 0; i < size; i++) {
-            newData[i] = data[i];
-        }
-
-        delete[] data;  // Delete old array
-        data = newData;  // Point to new array
-    }
-};
-```
 
 #### Key Components of the Vector Template
 * Data Member (```T* data```):
@@ -128,7 +66,36 @@ Using templates allows you to write generic code that works with any data type. 
 ### Conclusion
 The ```vector``` template class in C++ is a powerful and flexible way to handle dynamic arrays. By using templates, the ```vector``` class can store elements of any type, and with functions like ```push_back()``` and dynamic resizing, it efficiently manages memory and grows as needed. The STL ```std::vector``` is a well-optimized implementation of this idea.
 
+
+## Stacks
+A **stack** is a linear data structure that follows the **LIFO** (Last In, First Out) principle, meaning the last element added to the stack is the first one to be removed. It can be visualized as a collection of items stacked on top of each other, where only the topmost item can be accessed or removed.
+
+### Key Operations of a Stack:
+* **Push:** Adds an element to the top of the stack.
+* **Pop:** Removes the element from the top of the stack.
+* **Peek (or Top):** Retrieves the top element without removing it.
+* **isEmpty:** Checks if the stack is empty.
+
+
+### Advantages of a Stack:
+* Simplicity: Ideal for solving problems like reversing a string or validating parentheses.
+* Efficient: Push and pop operations are O(1).
+* Useful in algorithms like depth-first search, function call stacks, etc.
+
+### Applications of a Stack:
+* **Expression Evaluation:** Parsing and evaluating expressions (e.g., postfix evaluation).
+* **Undo Mechanism:** Used in text editors for undo operations.
+* **Recursion:** Call stack in programming.
+* **Depth-First Search (DFS):** Used in graph and tree traversal algorithms.
+
+
 ## Practice Examples
-1. In the code for the simplified vector class, add a method and name it pop_back(). pop_back() should delete the last element in your vector. 
-2. Add another method call pop_front(), pop_front() should delete the first element of the vector.
-3. for the Point3D class from last lecture, create a vector from the stl, and add four random points to the vector. Do this in the main function.
+1. Given a queue of strings and an integer k, reverse the order of the first k elements of the queue, leaving the rest of the elements in the same order. You must use:
+
+* A stack to help reverse the first k elements.
+* A queue to represent the original data.
+* A vector to return or display the final result.
+
+2. Notice that our three classes share a lot of code for managing dynamic arrays. To eliminate this redundancy, create a new class called ResourceArray that encapsulates all the common logic, including the Big Five (constructor, destructor, copy/move constructors, and copy/move assignment operators).
+
+Then, instead of directly managing arrays with new in each of your classes, use ResourceArray as a member to handle the array storage. This way, Queue, Stack, Vector and any other class can reuse the same array management code safely and efficiently.
