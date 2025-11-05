@@ -6,7 +6,8 @@
 3. STL 
 4. Practice Examples
 
-
+## LINKS 
+For more info on stl containers visit: https://en.cppreference.com/w/cpp/container.html
 
 ## Vector Class
 A ```C++``` ```vector``` is a dynamic array that can grow or shrink in size. Let's break down how a ```vector``` works as a class and what its key components are.
