@@ -1,0 +1,18 @@
+# macOS system files
+.DS_Store
+
+# C++ build artifacts
+*.o
+*.obj
+*.exe
+*.out
+*executable
+a.out
+recursioncompi
+mAIN
+
+# VS Code files
+.vscode/c_cpp_properties.json
+
+# Temporary directories/files
+homeworks/HW3 copy/
