@@ -299,10 +299,9 @@ score["Jerry"] = 85;
 * A vector to return or display the final result.
 
 2. Notice that our three classes share a lot of code for managing dynamic arrays. To eliminate this redundancy, create a new class called ResourceArray that encapsulates all the common logic, including the Big Five (constructor, destructor, copy/move constructors, and copy/move assignment operators).
-
 Then, instead of directly managing arrays with new in each of your classes, use ResourceArray as a member to handle the array storage. This way, Queue, Stack, Vector and any other class can reuse the same array management code safely and efficiently.
 3. Write a program to implement a stack in C++ that checks if a given string of parentheses is balanced. A string is considered balanced if:
-   * Every opening parenthesis ```(,{,[``` has a corresponding and correctly placed closing parenthesis ```), \}, \]```.
+   * Every opening parenthesis ```(,{,[``` has a corresponding and correctly placed closing parenthesis ```), }, ]```.
    * Closing parentheses match the most recently opened parentheses.
 
    You need to:

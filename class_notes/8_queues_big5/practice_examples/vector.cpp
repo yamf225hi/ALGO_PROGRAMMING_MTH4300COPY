@@ -109,7 +109,7 @@ void Vector::insert(const size_t index, const double& value)
     if(size_==capacity_) resize();
 
     for(size_t i=size_; i>index; i--)   data_[i]=data_[i-1];
-
+    data_[index]=value;
     size_++;
 }
 

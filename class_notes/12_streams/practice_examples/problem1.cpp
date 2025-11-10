@@ -4,7 +4,6 @@
 
 int main()
 {
-    // question 1 and 2
     // time complexity: O(n), space complexity: O(1)
     std::list<int> l = {1,2,3,4,5,6,7,8};
     l.reverse();
@@ -13,7 +12,6 @@ int main()
     std::cout<<std::endl;
     
 
-    //question 3
     std::ifstream in_file("link_list.txt");
     if(!in_file.is_open())
     {
