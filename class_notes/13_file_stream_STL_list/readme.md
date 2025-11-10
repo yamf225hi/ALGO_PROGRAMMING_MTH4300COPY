@@ -188,29 +188,6 @@ Remember to close the file after operations to release resources.
 Use appropriate file open modes depending on whether you want to overwrite, append, or open in binary mode.
 
 
-## STL List and Iterators
-In C++, the Standard Template Library (STL) ```std::list``` is a doubly linked list. It allows fast insertion and deletion at any position (constant time for these operations), but it does not support random access like ```std::vector```. Instead, elements must be accessed sequentially.
-
-### Key Features:
-* Dynamic size (automatically resizes).
-* Bi-directional traversal using iterators.
-* Efficient insertion/removal from both ends and in the middle (compared to vectors).
-
-
-### Iterators:
-```std::list``` provides bi-directional iterators, which can move forward (++) and backward (--).
-Iterators are similar to pointers and can be used to traverse, insert, or delete elements.
-
-### Basic usage:
-```cpp
-std::list<int> lst = {1, 2, 3, 4};
-std::list<int>::iterator it = lst.begin();  // Points to the first element
-++it;  // Move to the next element
-lst.insert(it, 10);  // Insert 10 before the current position
-```
-Iterators become invalid after modifying the list structure at their position.
-
-
 ## Practice Examples
 1. Use stl list and solve the problem from last time for reversing a linked list
 2. What is the time complexity (big O notation) for reversed linked list?
