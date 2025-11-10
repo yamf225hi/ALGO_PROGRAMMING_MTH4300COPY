@@ -2,7 +2,7 @@
 
 ## table of contents
 1. File Streams
-2. STL List and Iterators
+2. sstream
 3. Practice Examples
 
 
@@ -188,7 +188,5 @@ Remember to close the file after operations to release resources.
 Use appropriate file open modes depending on whether you want to overwrite, append, or open in binary mode.
 
 
-## Practice Examples
-1. Use stl list and solve the problem from last time for reversing a linked list
-2. What is the time complexity (big O notation) for reversed linked list?
-3. Read the [link list](./practice_examples/link_list.txt) from the file and store it in a stl list. Insert three nodes with the values 1,2 and 3 into the stl list. Sort the list by referencing [stl list documentation](https://cplusplus.com/reference/list/list/), then write the sorted list with the inserted values into a new file and name it ```modified_link_list.txt```. Reference the documentation and note the runtime and spacetime complexity for insert and sort.  
+## practice examples
+1. Read the [link list](./practice_examples/link_list.txt) from the file and store it in a stl list. Insert three nodes with the values 1,2 and 3 into the stl list. Sort the list by referencing [stl list documentation](https://cplusplus.com/reference/list/list/), then write the sorted list with the inserted values into a new file and name it ```modified_link_list.txt```. Reference the documentation and note the runtime and spacetime complexity for insert and sort. 
