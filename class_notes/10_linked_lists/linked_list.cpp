@@ -1,6 +1,7 @@
 #include <iostream>
 #include "linked_list.h"
 
+using namespace std;
 
 LinkedList::LinkedList() : head(nullptr) {}
 
@@ -76,19 +77,28 @@ LinkedList& LinkedList::operator=(LinkedList&& rhs)
 }
 
 
+Node* LinkedList::search(int pos)
+{
+    Node* curr = head;
+    
+    while(curr && pos>0)
+    {
+        curr=curr->next;
+        pos--;
+    }
+    return pos==0?curr:nullptr;
+}
+
+
 void LinkedList::insert(int value, int pos) 
 {
-    Node* newNode = new Node();  // Create a new node
-    newNode->data = value;
-    newNode->next = nullptr;
-
     // empty list case
-    if(head==nullptr && pos==0)
-        head=newNode;   
+    if(head==nullptr && pos==0) head= new Node(value);   
 
     //insert at front of list
     else if(pos==0)
     {
+        Node* newNode = new Node(value); 
         newNode->next=head;
         head=newNode;
     }
@@ -96,49 +106,39 @@ void LinkedList::insert(int value, int pos)
     // Search for the position to insert
     else
     {
-        Node* temp = head;
-        while(temp!=nullptr && (pos-1)>0)
+        Node* temp = search(pos-1);
+        
+        if (temp)     
         {
-            temp=temp->next;
-            pos--;
-        }
-
-        if (temp!=nullptr && pos == 1) 
-        {
-            newNode->next=temp->next;
+            Node* newNode = new Node(value, temp->next);
             temp->next = newNode;
         }
 
-        else
-        {
-            std::cout<<"unable to add node, pos invalid"<<std::endl;
-            delete newNode;
-        }
-    }
-   
+        else    cout<<"unable to add node, pos invalid"<<endl;
+
+    }  
 }
 
 
 void LinkedList::display() 
 {
     Node* temp = head;
-    while (temp != nullptr) 
+    while (temp) 
     {
-        std::cout << temp->data << " -> ";
+        cout << temp->data << " -> ";
         temp = temp->next;
     }
-    std::cout << "nullptr" << std::endl;
+    cout << "nullptr" << endl;
 }
 
 
 void LinkedList::deleteByPosition(int pos) 
 {
     // If list is empty
-    if (head == nullptr)
-        std::cout << "List is empty, cannot delete" << std::endl;
+    if (!head)    cout << "List is empty, cannot delete" << endl;
 
     // If the head node holds the value to be deleted
-    else if(head!=nullptr && pos == 0)
+    else if(head && pos == 0)
     {
         Node* temp=head;
         head=head->next;
@@ -148,21 +148,13 @@ void LinkedList::deleteByPosition(int pos)
     // Search for the position to delete
     else
     {
-        Node* prev = nullptr;
-        Node* curr = head;
-        while(curr!=nullptr && pos>0)
-        {
-            prev=curr;
-            curr=curr->next;
-            pos--;
-        }
-
-        if(curr!=nullptr && pos==0)
+        Node* prev = search(pos-1);
+        Node* curr = prev->next;    
+        if(prev && curr)
         {
             prev->next=curr->next;
             delete curr;
         }
-    }
-    
+        else    cout<<"unable to delete, pos invalid"<<endl;
+    }  
 }   
-

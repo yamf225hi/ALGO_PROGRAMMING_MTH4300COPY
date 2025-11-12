@@ -20,9 +20,9 @@ int main()
     list.display();  // Output: 10 -> 20 -> 30 -> 40 -> nullptr
 
     // Delete an element
-    list.deleteByValue(20);
-    cout << "After deleting 20: ";
-    list.display();  // Output: 10 -> 30 -> 40 -> nullptr
+    list.deleteByPosition(2);
+    cout << "After deleting 30: ";
+    list.display();  // Output: 10 -> 20 -> 40 -> nullptr
 
     cout << "list copy: ";
     list_copy.display();

@@ -39,6 +39,70 @@ struct Node {
   * To search for a node, we traverse the list from the ```head```, checking each node's data.
 
 
+## Search and traversal
+### 🧩 What “search by position” means
+
+If you have a linked list like:
+
+```
+Head → [10] → [20] → [30] → [40] → nullptr
+```
+
+Each node has a **position** (or index), typically starting at **0** (or 1, depending on convention):
+
+| Position | Value |
+|-----------|--------|
+| 0 | 10 |
+| 1 | 20 |
+| 2 | 30 |
+| 3 | 40 |
+
+Searching **by position** means:  
+> Find the node *at* a given position — for example, “give me the 2nd element”.
+
+---
+
+## 2. How it works conceptually
+
+Unlike arrays, a linked list does **not** support direct indexing (`list[2]` won’t work).  
+So, to find the node at a specific position, you must **traverse** from the head and count as you go.
+
+### Steps:
+
+1. Start at the **head** node.  
+2. Keep a **counter** (starting at 0).  
+3. Move through the list one node at a time (`current = current->next`),  
+   increasing the counter each time.  
+4. When the counter equals the target position → you’ve found your node.  
+5. If you reach the end (`nullptr`) before the counter matches → position is out of range.
+
+---
+
+## 3. Visual example
+
+Find the node at **position 2**:
+
+```
+Head → [10] → [20] → [30] → [40] → nullptr
+          0       1       2
+```
+
+Steps:
+- Start: current = 10 (pos 0)
+- Move: current = 20 (pos 1)
+- Move: current = 30 (pos 2) → found!
+
+---
+
+
+### 4. Time complexity
+
+You might need to traverse up to *n* nodes in the worst case →  
+ **O(n)** time complexity.
+
+
+
+
 ## Inserting a node at a specific position
 So you can visualize it like this:
 
@@ -201,7 +265,9 @@ Linked lists are a fundamental data structure in computer science, used when dyn
 
 ## Practice Examples
 1. Modify deletion to delete by value instead of position. 
-2. Write a function that takes in a class ```LinkedList(singly linked list)```, and returns another linked list in the reverse order. Example: l1= 5->3->7->1 then the output should be l1_r= 1->7->3->5
-3. Implement a queue class, using the linked list data structure
-4. Use stl list and solve the problem from last time for reversing a linked list. What is the time complexity (big O notation) for reversed linked list with stl and without?
+2. Write a method that reverse the order of the linked list. Example: l1= 5->3->7->1 then the output should be l1_r= 1->7->3->5
+3. rewrite the search method using recursion
+4. Implement a queue class, using the linked list data structure
+5. Use stl list and solve the problem from last time for reversing a linked list. What is the time complexity (big O notation) for reversed linked list with stl and without?
+
   
