@@ -25,5 +25,5 @@ public:
     // Method to display the linked list
     void display();
     // Method to delete a node by value
-    void deleteByValue(int value);
+    void deleteByPosition(int value);
 };

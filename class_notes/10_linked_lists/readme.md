@@ -23,126 +23,7 @@ struct Node {
 };
 ```
 
-### Singly Linked List Example
-Let's build a simple singly linked list with basic operations like insertion, traversal, and deletion.
 
-a. **Creating the Linked List**
-We'll create a class ```LinkedList``` that manages the list, starting with an empty head pointer.
-
-```cpp
-#include <iostream>
-
-// Node structure
-struct Node {
-    int data;
-    Node* next;
-};
-
-// Linked List class
-class LinkedList {
-private:
-    Node* head;  // Points to the first node (or nullptr if the list is empty)
-
-public:
-    // Constructor
-    LinkedList() : head(nullptr) {}
-
-    // Destructor to clean up memory
-    ~LinkedList() {
-        Node* current = head;
-        while (current != nullptr) {
-            Node* nextNode = current->next;
-            delete current;
-            current = nextNode;
-        }
-    }
-
-    // Method to insert a node at the end
-    void insert(int value) {
-        Node* newNode = new Node();  // Create a new node
-        newNode->data = value;
-        newNode->next = nullptr;
-
-        if (head == nullptr) {
-            // If list is empty, new node becomes the head
-            head = newNode;
-        } else {
-            Node* temp = head;
-            while (temp->next != nullptr) {
-                temp = temp->next;  // Traverse to the last node
-            }
-            temp->next = newNode;  // Insert at the end
-        }
-    }
-
-    // Method to display the linked list
-    void display() {
-        Node* temp = head;
-        while (temp != nullptr) {
-            std::cout << temp->data << " -> ";
-            temp = temp->next;
-        }
-        std::cout << "nullptr" << std::endl;
-    }
-
-    // Method to delete a node by value
-    void deleteNode(int value) {
-        if (head == nullptr) {
-            std::cout << "List is empty, cannot delete" << std::endl;
-            return;
-        }
-
-        // If the head node holds the value to be deleted
-        if (head->data == value) {
-            Node* temp = head;
-            head = head->next;  // Move head to the next node
-            delete temp;        // Free memory of old head
-            return;
-        }
-
-        // Search for the node to delete
-        Node* current = head;
-        Node* previous = nullptr;
-        while (current != nullptr && current->data != value) {
-            previous = current;
-            current = current->next;
-        }
-
-        // If the value is found, delete the node
-        if (current != nullptr) {
-            previous->next = current->next;
-            delete current;
-        } else {
-            std::cout << "Value not found in the list" << std::endl;
-        }
-    }
-};
-```
-b. **Operations on Linked List**
-Now let's use the ```LinkedList``` class to insert, display, and delete nodes.
-
-```cpp
-int main() {
-    LinkedList list;
-
-    // Insert elements
-    list.insert(10);
-    list.insert(20);
-    list.insert(30);
-    list.insert(40);
-
-    // Display the linked list
-    std::cout << "Linked List: ";
-    list.display();  // Output: 10 -> 20 -> 30 -> 40 -> nullptr
-
-    // Delete an element
-    list.deleteNode(20);
-    std::cout << "After deleting 20: ";
-    list.display();  // Output: 10 -> 30 -> 40 -> nullptr
-
-    return 0;
-}
-```
 ### Key Linked List Operations
 * **Insertion:**
   * To insert a new node, we can add it to the head (beginning), tail (end), or any position in between.
@@ -188,9 +69,8 @@ Linked lists are a fundamental data structure in computer science, used when dyn
 
 
 ## Practice Examples
-1. Modify deletion to delete by position instead of value. 
+1. Modify deletion to delete by value instead of position. 
 2. Write a function that takes in a class ```LinkedList(singly linked list)```, and returns another linked list in the reverse order. Example: l1= 5->3->7->1 then the output should be l1_r= 1->7->3->5
-3. Separate the interface from implementation for the ```LinkedList``` class given.
-4. Implement a queue class, using the linked list data structure
-5. Use stl list and solve the problem from last time for reversing a linked list. What is the time complexity (big O notation) for reversed linked list with stl and without?
+3. Implement a queue class, using the linked list data structure
+4. Use stl list and solve the problem from last time for reversing a linked list. What is the time complexity (big O notation) for reversed linked list with stl and without?
   

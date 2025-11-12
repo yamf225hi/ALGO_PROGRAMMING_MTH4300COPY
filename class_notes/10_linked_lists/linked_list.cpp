@@ -131,41 +131,38 @@ void LinkedList::display()
 }
 
 
-void LinkedList::deleteByValue(int value) 
+void LinkedList::deleteByPosition(int pos) 
 {
     // If list is empty
     if (head == nullptr)
         std::cout << "List is empty, cannot delete" << std::endl;
 
-
     // If the head node holds the value to be deleted
-    else if (head->data == value) 
+    else if(head!=nullptr && pos == 0)
     {
-        Node* temp = head;
-        head = head->next;  // Move head to the next node
-        delete temp;        // Free memory of old head
+        Node* temp=head;
+        head=head->next;
+        delete temp;
     }
 
-    // Search for the node to delete
+    // Search for the position to delete
     else
     {
-        Node* current = head;
-        Node* previous = nullptr;
-        while (current != nullptr && current->data != value)
+        Node* prev = nullptr;
+        Node* curr = head;
+        while(curr!=nullptr && pos>0)
         {
-            previous = current;
-            current = current->next;
+            prev=curr;
+            curr=curr->next;
+            pos--;
         }
 
-        // If the value is found, delete the node
-        if (current != nullptr)
+        if(curr!=nullptr && pos==0)
         {
-            previous->next = current->next;
-            delete current;
+            prev->next=curr->next;
+            delete curr;
         }
-
-        else std::cout << "Value not found in the list" << std::endl;
     }
     
-}
+}   
 
