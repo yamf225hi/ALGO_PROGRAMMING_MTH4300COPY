@@ -5,9 +5,9 @@
 LinkedList::LinkedList() : head(nullptr) {}
 
 
-LinkedList::LinkedList(const LinkedList& l) : head(nullptr) 
+LinkedList::LinkedList(const LinkedList& other) : head(nullptr) 
 {
-    Node* current = l.head;
+    Node* current = other.head;
     int i=0;
     while (current != nullptr)
     {
@@ -18,7 +18,20 @@ LinkedList::LinkedList(const LinkedList& l) : head(nullptr)
 }
 
 
+LinkedList::LinkedList(LinkedList&& other)
+{
+    head=other.head;
+    other.head=nullptr;
+}
+
+
 LinkedList::~LinkedList() 
+{
+    eraseList();
+}
+
+
+void LinkedList::eraseList() 
 {
     Node* current = head;
     while (current != nullptr)
@@ -27,6 +40,39 @@ LinkedList::~LinkedList()
         delete current;
         current = nextNode;
     }
+    head = nullptr;
+}
+
+
+LinkedList& LinkedList::operator=(const LinkedList& rhs)
+{
+    if(this!=&rhs)
+    {
+        eraseList();
+        Node* current = rhs.head;
+        int i=0;
+        while (current != nullptr)
+        {
+            insert(current->data,i);
+            current=current->next;
+            i++;
+        }
+    }
+
+    return *this;
+}
+
+
+LinkedList& LinkedList::operator=(LinkedList&& rhs)
+{
+    if(this!=&rhs)
+    {
+        head=rhs.head;
+        rhs.head=nullptr;
+    }
+    
+
+    return *this;
 }
 
 

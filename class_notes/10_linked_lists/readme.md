@@ -188,7 +188,7 @@ Linked lists are a fundamental data structure in computer science, used when dyn
 
 
 ## Practice Examples
-1. Modify insertion and deletion to delete by position instead of value. 
+1. Modify deletion to delete by position instead of value. 
 2. Write a function that takes in a class ```LinkedList(singly linked list)```, and returns another linked list in the reverse order. Example: l1= 5->3->7->1 then the output should be l1_r= 1->7->3->5
 3. Separate the interface from implementation for the ```LinkedList``` class given.
 4. Implement a queue class, using the linked list data structure

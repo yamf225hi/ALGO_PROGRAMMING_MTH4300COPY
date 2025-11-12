@@ -9,14 +9,17 @@ class LinkedList
 {
 private:
     Node* head;  // Points to the first node (or nullptr if the list is empty)
+    void eraseList(); //helper to delete the whole list
 
 public:
-    // Constructor
     LinkedList();
-    // Copy Constructor
-    LinkedList(const LinkedList& l) ;
-    // Destructor to clean up memory
-    ~LinkedList() ;
+    LinkedList(const LinkedList& l);
+    LinkedList(LinkedList&& l);
+    ~LinkedList();
+    LinkedList& operator=(const LinkedList& rhs);
+    LinkedList& operator=(LinkedList&& rhs);
+
+
     // Method to insert a node by position
     void insert(int value, int pos);
     // Method to display the linked list
