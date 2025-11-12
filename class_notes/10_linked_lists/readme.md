@@ -39,6 +39,137 @@ struct Node {
   * To search for a node, we traverse the list from the ```head```, checking each node's data.
 
 
+## Inserting a node at a specific position
+So you can visualize it like this:
+
+```
+[10 | ●] → [20 | ●] → [30 | ●] → [40 | /]
+```
+
+Each arrow (●) represents the “next” pointer to the following node.  
+The first node is the **head**, and the last one points to **nullptr** (or null), marking the end.
+
+---
+
+
+Let’s say we want to insert a new node at position `pos`.
+
+### Conceptually, this means:
+We want the new node to appear *between* two existing nodes.
+
+For example, if we have:
+```
+head → A → B → C → D
+```
+and we insert a new node `X` at position 2 (0-based), the result should be:
+```
+head → A → B → X → C → D
+```
+
+### So what has to happen?
+
+1. **Find the place to insert.**
+   - You walk through the list one node at a time until you reach the node that comes *just before* the position you want.
+   - In this example, we stop at node `B` (position 1).
+
+2. **Create the new node.**
+   - It will store its data and will eventually point to the next node (`C` in our example).
+
+3. **Adjust the links.**
+   - The new node should point to what used to be `B`’s next node (`C`).
+   - Then `B`’s “next” pointer must be changed to point to the new node.
+
+So the pointer updates look like this:
+
+```
+Before:
+   B → C
+After:
+   B → X → C
+```
+
+Everything else stays the same.
+
+### Special case — inserting at the head
+If you insert at position 0:
+- The new node should point to the *current head*.
+- Then it becomes the new head.
+
+Visually:
+```
+Before:  head → A → B → C
+After:   head → X → A → B → C
+```
+
+---
+
+## Erasing (deleting) a node at a specific position
+
+Now imagine we want to remove a node at position `pos`.
+
+Let’s say we have:
+```
+head → A → B → C → D
+```
+and we want to **erase** the node at position 2 (`C`).
+
+### Conceptually, this means:
+We want to remove `C` from the chain, so that the list becomes:
+```
+head → A → B → D
+```
+
+### Steps that must happen:
+
+1. **Find the node *before* the one to delete.**
+   - Again, we walk through until we reach the node that links to the one we want to remove.
+   - In this case, that’s `B`.
+
+2. **Change its “next” pointer.**
+   - `B` currently points to `C`.  
+     We want it to skip `C` and point to `C`’s next node (`D`).
+
+   ```
+   Before: B → C → D
+   After:  B → D
+   ```
+
+3. **Dispose of the removed node.**
+   - Once we’ve adjusted the links, `C` is no longer part of the list.
+   - We can delete it (in memory-managed terms, we release that node).
+
+### Special case — deleting the head
+If you erase position 0:
+- The head simply moves to point to the next node.
+  
+  ```
+  Before: head → A → B → C
+  After:  head → B → C
+  ```
+
+---
+
+## The key idea
+
+Both insertion and deletion are about **link manipulation**:
+- In insertion, you **add** a node and **reconnect pointers** so it fits in.
+- In deletion, you **remove** a node and **reconnect pointers** so the chain stays unbroken.
+
+You always need to keep track of the **node before** the point of change — because that’s the one whose link must be updated.
+
+---
+
+## Time complexity (conceptually)
+
+Since linked lists don’t have random access (you can’t jump directly to position `pos`), you must **walk** through nodes one by one to find the right spot.
+
+So:
+- Finding the right position takes **O(pos)** steps.
+- Updating the pointers takes **O(1)** (just a couple of link changes).
+
+Total = **O(n)** in general (because of the traversal).
+
+
 ### Types of Linked Lists
 * **Singly Linked List:** Each node points to the next node, and the last node points to ```nullptr```.
 * **Doubly Linked List:** Each node has two pointers: one pointing to the next node and another pointing to the previous node. This allows traversal in both directions.

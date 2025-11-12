@@ -1,38 +1,28 @@
 #include<iostream>
-#include"linked_list.h"
+#include<list>
 
 using namespace std;
 
+
 int main() 
 {
-    LinkedList list;
+    list<int> l;
+    l.push_back(10);
+    l.push_back(20);
+    l.push_back(30);
+    l.push_back(40);
 
-    // Insert elements
-    list.insert(10,0);
-    list.insert(20,1);
-    list.insert(30,2);
-    list.insert(40,3);
+    auto it_adv=l.begin();
+    advance(it_adv,2);
+    l.insert(it_adv,98);
 
-    LinkedList list_copy(list);
-
-    // Display the linked list
-    cout << "Linked List: ";
-    list.display();  // Output: 10 -> 20 -> 30 -> 40 -> nullptr
-
-    // Delete an element
-    list.deleteByValue(20);
-    cout << "After deleting 20: ";
-    list.display();  // Output: 10 -> 30 -> 40 -> nullptr
-
-    cout << "list copy: ";
-    list_copy.display();
+    for(auto it = l.begin(); it != l.end(); ++it)   cout<<*it<<"-> ";
+    cout<<endl;
 
 
-    list_copy=move(list);
-    cout << "list assignment: ";
-    list_copy.display();
+    l.reverse();
+    for(auto it = l.begin(); it != l.end(); ++it)   cout<<*it<<"-> ";
+    cout<<endl;
 
-    cout << "other: ";
-    list.display();
     return 0;
 }
