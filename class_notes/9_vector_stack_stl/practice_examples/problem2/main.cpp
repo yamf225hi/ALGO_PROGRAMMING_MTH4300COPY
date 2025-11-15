@@ -8,6 +8,20 @@ using namespace std;
 Vector reverse_k_elements(Queue q, const int k)
 {
     Stack s;
+    Vector v;
+    for(int i = 0; i < k; i++)
+    {
+        s.push(q.front());
+        q.pop();
+    }  
+
+    for(int i = 0; i < k; i++)
+    {
+        v.insert(i,s.top());
+        s.pop();
+    }  
+    
+    return v;
 } 
 
 int main()

@@ -1,13 +1,14 @@
 #include <iostream>
 #include "linked_list.h"
 
+using namespace std;
 
 LinkedList::LinkedList() : head(nullptr) {}
 
 
-LinkedList::LinkedList(const LinkedList& l) : head(nullptr) 
+LinkedList::LinkedList(const LinkedList& other) : head(nullptr) 
 {
-    Node* current = l.head;
+    Node* current = other.head;
     int i=0;
     while (current != nullptr)
     {
@@ -18,7 +19,20 @@ LinkedList::LinkedList(const LinkedList& l) : head(nullptr)
 }
 
 
+LinkedList::LinkedList(LinkedList&& other)
+{
+    head=other.head;
+    other.head=nullptr;
+}
+
+
 LinkedList::~LinkedList() 
+{
+    eraseList();
+}
+
+
+void LinkedList::eraseList() 
 {
     Node* current = head;
     while (current != nullptr)
@@ -27,22 +41,64 @@ LinkedList::~LinkedList()
         delete current;
         current = nextNode;
     }
+    head = nullptr;
+}
+
+
+LinkedList& LinkedList::operator=(const LinkedList& rhs)
+{
+    if(this!=&rhs)
+    {
+        eraseList();
+        Node* current = rhs.head;
+        int i=0;
+        while (current != nullptr)
+        {
+            insert(current->data,i);
+            current=current->next;
+            i++;
+        }
+    }
+
+    return *this;
+}
+
+
+LinkedList& LinkedList::operator=(LinkedList&& rhs)
+{
+    if(this!=&rhs)
+    {
+        head=rhs.head;
+        rhs.head=nullptr;
+    }
+    
+
+    return *this;
+}
+
+
+Node* LinkedList::search(int pos)
+{
+    Node* curr = head;
+    
+    while(curr && pos>0)
+    {
+        curr=curr->next;
+        pos--;
+    }
+    return pos==0?curr:nullptr;
 }
 
 
 void LinkedList::insert(int value, int pos) 
 {
-    Node* newNode = new Node();  // Create a new node
-    newNode->data = value;
-    newNode->next = nullptr;
-
     // empty list case
-    if(head==nullptr && pos==0)
-        head=newNode;   
+    if(head==nullptr && pos==0) head= new Node(value);   
 
     //insert at front of list
     else if(pos==0)
     {
+        Node* newNode = new Node(value); 
         newNode->next=head;
         head=newNode;
     }
@@ -50,26 +106,17 @@ void LinkedList::insert(int value, int pos)
     // Search for the position to insert
     else
     {
-        Node* temp = head;
-        while(temp!=nullptr && (pos-1)>0)
+        Node* temp = search(pos-1);
+        
+        if (temp)     
         {
-            temp=temp->next;
-            pos--;
-        }
-
-        if (temp!=nullptr && pos == 1) 
-        {
-            newNode->next=temp->next;
+            Node* newNode = new Node(value, temp->next);
             temp->next = newNode;
         }
 
-        else
-        {
-            std::cout<<"unable to add node, pos invalid"<<std::endl;
-            delete newNode;
-        }
-    }
-   
+        else    cout<<"unable to add node, pos invalid"<<endl;
+
+    }  
 }
 
 
@@ -78,10 +125,10 @@ void LinkedList::display()
     Node* temp = head;
     while (temp != nullptr) 
     {
-        std::cout << temp->data << " -> ";
+        cout << temp->data << " -> ";
         temp = temp->next;
     }
-    std::cout << "nullptr" << std::endl;
+    cout << "nullptr" << endl;
 }
 
 
@@ -89,7 +136,7 @@ void LinkedList::deleteByValue(int value)
 {
     // If list is empty
     if (head == nullptr)
-        std::cout << "List is empty, cannot delete" << std::endl;
+        cout<< "List is empty, cannot delete" <<endl;
 
 
     // If the head node holds the value to be deleted
@@ -118,7 +165,7 @@ void LinkedList::deleteByValue(int value)
             delete current;
         }
 
-        else std::cout << "Value not found in the list" << std::endl;
+        else cout << "Value not found in the list" << endl;
     }
     
 }
@@ -127,11 +174,10 @@ void LinkedList::deleteByValue(int value)
 void LinkedList::deleteByPosition(int pos) 
 {
     // If list is empty
-    if (head == nullptr)
-        std::cout << "List is empty, cannot delete" << std::endl;
+    if (!head)    cout << "List is empty, cannot delete" << endl;
 
     // If the head node holds the value to be deleted
-    else if(head!=nullptr && pos == 0)
+    else if(head && pos == 0)
     {
         Node* temp=head;
         head=head->next;
@@ -141,23 +187,16 @@ void LinkedList::deleteByPosition(int pos)
     // Search for the position to delete
     else
     {
-        Node* prev = nullptr;
-        Node* curr = head;
-        while(curr!=nullptr && pos>0)
-        {
-            prev=curr;
-            curr=curr->next;
-            pos--;
-        }
-
-        if(curr!=nullptr && pos==0)
+        Node* prev = search(pos-1);
+        Node* curr = prev->next;    
+        if(prev && curr)
         {
             prev->next=curr->next;
             delete curr;
         }
-    }
-    
-}   
+        else    cout<<"unable to delete, pos invalid"<<endl;
+    }  
+} 
 
 
 void LinkedList::reverse()
@@ -173,3 +212,14 @@ void LinkedList::reverse()
     }
     head = prev;
 }
+
+
+Node* LinkedList::recursiveSearch(Node* start, int pos)
+{
+    if (!start) return nullptr;
+    if(pos==0) return start;
+
+    return recursiveSearch(start->next,pos-1);
+
+}
+

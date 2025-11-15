@@ -68,5 +68,7 @@ int main()
     std::cout << "Reverse List2: ";
     list2.display(); // Output: 10 -> 17 -> 40 -> 70 -> 20 -> nullptr
    
+
+    std::cout<<"index 3 of list2: "<<list2.recursiveSearch(list2.search(0),3)->data<<std::endl;
     return 0;
 }

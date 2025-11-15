@@ -279,7 +279,7 @@ score["Jerry"] = 85;
 
 ---
 
-## 🧠 Summary Table
+## Summary Table
 
 | Container         | Type               | Ordered | Duplicates | Access | Insert/Erase | Implementation |
 |-------------------|--------------------|----------|-------------|---------|---------------|----------------|
@@ -290,6 +290,42 @@ score["Jerry"] = 85;
 | `map`             | Associative        | Yes (by key) | No | O(log n) | O(log n) | Balanced BST |
 | `unordered_map`   | Associative (hash) | No       | No | O(1) avg | O(1) avg | Hash table |
 
+
+## auto keyword
+In short:
+
+auto tells the compiler to deduce the type automatically from the initializer.
+
+Example:
+```cpp
+auto x = 10;        // x is an int
+auto y = 3.14;      // y is a double
+auto s = "hello";   // s is a const char*
+```
+
+So instead of explicitly writing the type, you let the compiler infer it for you.
+
+### Why It Exists
+
+auto was introduced to:
+
+* Reduce repetition in verbose declarations.
+* Avoid mistakes when the real type is long or complex.
+* Make code more flexible (e.g., when changing return types or templates).
+
+### Typical Uses
+1. Simplify complex iterator declarations
+
+Before auto:
+```cpp
+std::vector<int> v = {1, 2, 3};
+std::vector<int>::iterator it = v.begin();
+```
+
+With auto:
+```cpp
+auto it = v.begin()
+```
 
 ## Practice Examples
 1. Given a queue of strings and an integer k, reverse the order of the first k elements of the queue, leaving the rest of the elements in the same order. You must use:
