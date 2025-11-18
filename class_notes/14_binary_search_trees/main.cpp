@@ -51,12 +51,27 @@ int main()
     bst.insert(bst.getRoot(),40);
     bst.insert(bst.getRoot(),60);
     bst.insert(bst.getRoot(),80);
-    bst.insert(bst.getRoot(),15);
-    bst.insert(bst.getRoot(),10);
-    bst.insert(bst.getRoot(),35);
 
-    std::cout<<"BFS: ";
-    BFS(bst);
+    bst.inOrder(bst.getRoot());
+    std::cout<<std::endl;
+    
+    bst.deleteNode(bst.getRoot(),70);
+    bst.inOrder(bst.getRoot());
+    std::cout<<std::endl;
+
+    bst.insert(bst.getRoot(),30);
+    bst.inOrder(bst.getRoot());
+    std::cout<<std::endl;
+    
+
+    bst.~BinarySearchTree();
+    bst.inOrder(bst.getRoot());
+    std::cout<<std::endl;
+    int key=40;
+    if (bst.search(key)) 
+        std::cout << "Value " << key << " found in the tree." << std::endl;
+    
+    else std::cout << "Value " << key << " not found in the tree." << std::endl;
 
     return 0;
 }
