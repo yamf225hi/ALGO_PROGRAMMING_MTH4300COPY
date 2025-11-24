@@ -123,12 +123,51 @@ void LinkedList::insert(int value, int pos)
 void LinkedList::display() 
 {
     Node* temp = head;
-    while (temp) 
+    while (temp != nullptr) 
     {
         cout << temp->data << " -> ";
         temp = temp->next;
     }
     cout << "nullptr" << endl;
+}
+
+
+void LinkedList::deleteByValue(int value) 
+{
+    // If list is empty
+    if (head == nullptr)
+        cout<< "List is empty, cannot delete" <<endl;
+
+
+    // If the head node holds the value to be deleted
+    else if (head->data == value) 
+    {
+        Node* temp = head;
+        head = head->next;  // Move head to the next node
+        delete temp;        // Free memory of old head
+    }
+
+    // Search for the node to delete
+    else
+    {
+        Node* current = head;
+        Node* previous = nullptr;
+        while (current != nullptr && current->data != value)
+        {
+            previous = current;
+            current = current->next;
+        }
+
+        // If the value is found, delete the node
+        if (current != nullptr)
+        {
+            previous->next = current->next;
+            delete current;
+        }
+
+        else cout << "Value not found in the list" << endl;
+    }
+    
 }
 
 
@@ -157,4 +196,30 @@ void LinkedList::deleteByPosition(int pos)
         }
         else    cout<<"unable to delete, pos invalid"<<endl;
     }  
-}   
+} 
+
+
+void LinkedList::reverse()
+{
+    Node* prev=nullptr;
+    Node* curr=head;
+    while(curr!=nullptr)
+    {
+        Node* temp=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=temp;
+    }
+    head = prev;
+}
+
+
+Node* LinkedList::recursiveSearch(Node* start, int pos)
+{
+    if (!start) return nullptr;
+    if(pos==0) return start;
+
+    return recursiveSearch(start->next,pos-1);
+
+}
+
