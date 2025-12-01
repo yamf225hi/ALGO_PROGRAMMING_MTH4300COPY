@@ -9,7 +9,4 @@
 * templates
 * commmand line arguments
 * stl
-
-
-# current 
-* friend overload
+* priority an dequeue

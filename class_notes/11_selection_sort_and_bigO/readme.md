@@ -119,6 +119,41 @@ Original array: 64 25 12 22 11
 Sorted array: 11 12 22 25 64
 ```
 
-### Time Complexity:
-* Worst Case Time Complexity: O(n²) where n is the number of elements in the array.
-* Space Complexity: O(1), as no extra memory is used except for temporary variables.
+### Complexity Analysis
+
+### Time Complexity
+
+Selection Sort always performs the same number of comparisons regardless of the input order. Because of this, its best, average, and worst case time complexities are the same.
+
+1. Outer Loop:
+   Runs from i = n-1 down to 0 → executes n times.
+
+2. Inner Loop:
+   For each iteration of the outer loop, the inner loop scans from j = 0 to i.
+   So the number of comparisons is:
+   (n) + (n-1) + (n-2) + ... + 1
+   = n(n + 1)/2
+   = O(n²)
+
+3. Swaps:
+   Selection Sort performs at most one swap per outer-loop iteration, so it performs n swaps.
+
+### Best-Case Time Complexity: O(n²)
+Even if the array is already sorted, Selection Sort still runs all comparisons.
+
+### Average-Case Time Complexity: O(n²)
+The algorithm must still search the entire unsorted portion each time.
+
+### Worst-Case Time Complexity: O(n²)
+Even in the worst ordering, Selection Sort performs the same number of comparisons.
+
+### Space Complexity: O(1)
+
+Selection Sort is an in-place sorting algorithm:
+It uses only a constant amount of extra memory (temporary variables).
+
+### Stability
+
+Selection Sort is not stable.
+Swapping the maximum element with arr[i] can change the relative order of equal elements.
+

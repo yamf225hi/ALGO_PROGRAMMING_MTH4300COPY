@@ -5,7 +5,7 @@ struct Node
     Node* right;          // Pointer to the right child
 
     // Constructor to initialize a new node
-    Node(int value) {
+    Node(int value):data(value), left(nullptr),right(nullptr) {
         data = value;
         left = nullptr;
         right = nullptr;
@@ -28,7 +28,6 @@ class BinarySearchTree
         Node* search(int val);
         Node* deleteNode(Node* start, int val);
         Node* findMin(Node* start);
-        int getHeight(Node* start);
 
     private:
         void destroy(Node* curr_del);//helper function for destructor
