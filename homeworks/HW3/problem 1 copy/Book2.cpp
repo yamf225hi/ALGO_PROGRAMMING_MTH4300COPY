@@ -1,20 +1,25 @@
-#include <Book2.h>
-#include <iostream>
+#include "Book2.h"
+#include <string>
 
 
+//constructor defintin: 
+Book::Book(const std::string& bookTitle, const std::string& bookAuthor, int publishedYear, double bookPrice) 
+    :title(bookTitle), author(bookAuthor), yearPublished(publishedYear),price(bookPrice)
+    {
+            //construcor body. empty since all work done in the initializer list. 
+    }
 
-Book:: Book(const std::string& bookTitle, const std::string bookAuthor, int publishedYear = 1900, double bookPrice = 0) :title(t), author(a), yearPublished(p),price(P);
+void Book::applyDiscount(double discountPERCENTAGE)
+    {
+        price -= price * (discountPERCENTAGE / 100.0);
+    }
 
-void Book::applyDiscount(double& discountPERCENTAGE);
+
+std::string Book::getbookINFO() const
 {
-    price * (discountPERCENTAGE / 100.0);
+    std::string bookinfo = 
+        "Title" + title + "Author" + author + "Year Published" + std::to_string(yearPublished) + "price" + std::to_string(price);
+
+    return bookinfo;
+
 }
-
-
-std::string const Book::getbookINFO();
-{
-    std::cout << "BOOK TITLE:" << title << , << "BOOK AUTHOR: "<< author<< , <<"YEAR PUBLISHED: " << yearPublished << "PRICE BEFORE DISCOUNT" << price<< std::endl;
-}
-
-
-

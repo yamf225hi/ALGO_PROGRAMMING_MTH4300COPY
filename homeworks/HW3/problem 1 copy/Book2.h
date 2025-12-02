@@ -1,6 +1,6 @@
 #include <string>
-#ifndef Book2_h
-#define Book2_h
+#ifndef BOOK2_H
+#define BOOK2_H
 
 
 class Book
@@ -17,7 +17,7 @@ public:
     // the member function declaration: 
     void applyDiscount(double discountPERCENTAGE);
     
-    std::string const getbookINFO(); 
+    std::string getbookINFO() const; 
 
 
 };
