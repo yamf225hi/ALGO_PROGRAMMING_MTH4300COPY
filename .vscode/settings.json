@@ -8,4 +8,7 @@
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontWeight": "normal",
     "terminal.integrated.fontWeightBold": "bold",
+    "workbench.preferredDarkColorTheme": "Default High Contrast",
+    "workbench.editor.sharedViewState": true,
+    "C_Cpp.errorSquiggles": "enabled",
 }
