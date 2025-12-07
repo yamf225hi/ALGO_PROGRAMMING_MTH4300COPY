@@ -5,11 +5,7 @@ struct Node
     Node* right;          // Pointer to the right child
 
     // Constructor to initialize a new node
-    Node(int value):data(value), left(nullptr),right(nullptr) {
-        data = value;
-        left = nullptr;
-        right = nullptr;
-    }
+    Node(int value):data(value), left(nullptr),right(nullptr) {}
 };
 
 class BinarySearchTree
@@ -21,7 +17,12 @@ class BinarySearchTree
     public:
         BinarySearchTree();
         ~BinarySearchTree();
-
+        BinarySearchTree(const BinarySearchTree& other);
+        void copyTree(const Node* from_copy, Node*& to_copy);
+        BinarySearchTree(BinarySearchTree&& other);
+        BinarySearchTree& operator=(const BinarySearchTree& rhs);
+        BinarySearchTree& operator=(BinarySearchTree&& rhs);
+        
         Node* getRoot();
         Node* insert(Node* start, int val);
         void inOrder(Node* start);
