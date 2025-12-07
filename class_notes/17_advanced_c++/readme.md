@@ -7,7 +7,7 @@
 4. Random with random_device
 5. Templates
 6. Command Line Arguments
-7. makefile
+7. Makefile
 
 
 
