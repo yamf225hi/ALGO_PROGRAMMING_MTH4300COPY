@@ -7,6 +7,7 @@
 4. Random with random_device
 5. Templates
 6. Command Line Arguments
+7. Makefile
 
 
 
@@ -157,4 +158,36 @@ int main(int argc, char* argv[]) {
 ```
 
 ---
+
+## Makefile
+A Makefile is a file used by the `make` build tool to automate compiling and managing projects, especially in C/C++.
+
+It works by defining rules that tell `make`:
+- What to build (targets)
+- What files are needed (dependencies)
+- How to build them (commands)
+
+Rule format:
+target: dependencies
+    <TAB>command
+
+Why it’s useful:
+- Only recompiles files that changed (saves time)
+- Keeps build commands consistent
+- Supports multiple tasks like build, clean, and install
+
+Common commands:
+make        # builds the default target
+make clean  # removes compiled files
+make all    # builds everything
+
+Variables example:
+CC = gcc
+CFLAGS = -Wall -g
+
+app: main.o
+    $(CC) $(CFLAGS) main.o -o app
+
+In short: a Makefile is a simple automation script for builds that saves time and avoids repetitive manual commands.
+
 

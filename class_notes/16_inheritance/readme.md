@@ -7,8 +7,6 @@
 
 ## What is Inheritance?
 
-**Problem Statement**
-
 Inheritance is a mechanism in C++ which allows you to pass properties (attributes and methods) from one class to another.  
 The class whose properties and methods are inherited is known as the **base class**.  
 The class that inherits the properties from the parent class is the **derived class**.
@@ -17,11 +15,9 @@ The class that inherits the properties from the parent class is the **derived cl
 
 ## Simple Example
 
-(Example diagram here)
+![shapes](./imgs/shapes.png)
 
 ---
-
-## Simple Example (Cont.)
 
 Here we can see that both triangle and square are shapes. Therefore they can inherit properties from the shape class.  
 In this image we say that **triangle** and **square** are the derived classes and **shape** is the base class.
@@ -100,10 +96,4 @@ If you do not choose an inheritance type, C++ defaults to **private inheritance*
 
 ## Software Architecture of Code Example
 
-(Diagram or example here)
-
----
-
-## Introduction  
-## Technical Information  
-## Conclusion
+![code](./imgs/code.png)

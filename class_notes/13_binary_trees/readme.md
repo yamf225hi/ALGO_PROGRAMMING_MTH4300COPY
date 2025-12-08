@@ -146,4 +146,3 @@ public:
 1. write a method to get the height of the binary tree
 2. write a method to find the leftmost node of the tree
 3. write a method to count the number of nodes in the tree(size)
-4. separate interface and implementation fro binary tree code

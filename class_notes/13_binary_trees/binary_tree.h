@@ -28,9 +28,7 @@ private:
     void destroyTree(TreeNode* node);
     void printTree(TreeNode* node, int depth = 0, std::string prefix = "");
     void copyTree(const TreeNode* from_copy, TreeNode*& to_copy);
-    int getHeight(TreeNode* node);
-    TreeNode* findLeftmost(TreeNode* node);
-    int getSize(TreeNode* node);
+
     
 public:
     BinaryTree();
@@ -47,8 +45,4 @@ public:
     void printPreorder();
     void printPostorder();
     void printTree();
-    int getHeight();
-    TreeNode* findLeftmost();
-    int getSize();
-
 };

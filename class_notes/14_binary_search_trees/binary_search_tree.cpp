@@ -2,10 +2,72 @@
 #include"binary_search_tree.h"
 
 
-BinarySearchTree::BinarySearchTree():root(nullptr){}
+BinarySearchTree::BinarySearchTree():root(nullptr)
+{
+}
 
 
-BinarySearchTree::~BinarySearchTree()
+BinarySearchTree::BinarySearchTree(const BinarySearchTree& other): root(nullptr)
+{
+    if(!other.root) return;
+    
+    root = new Node(other.root->data);
+    copyTree(other.root->left,root->left);
+    copyTree(other.root->right,root->right);
+}
+
+
+void BinarySearchTree::copyTree(const Node* from_copy, Node*& to_copy)
+{
+    //preorder
+    if(!from_copy) return;
+    to_copy=new Node(from_copy->data);
+    copyTree(from_copy->left, to_copy->left);
+    copyTree(from_copy->right, to_copy->right);
+}
+
+
+BinarySearchTree::BinarySearchTree(BinarySearchTree&& other) 
+{
+    root=other.root;
+    other.root=nullptr;
+}
+
+
+BinarySearchTree& BinarySearchTree::operator=(const BinarySearchTree& rhs)
+{
+    if(&rhs != this)
+    {
+        destroy(root);
+        if(!rhs.root)
+        {
+            root = nullptr;
+            return *this;
+        }
+        
+        root = new Node(rhs.root->data);
+        copyTree(rhs.root->left,root->left);
+        copyTree(rhs.root->right,root->right);
+    }
+
+    return *this;
+}
+
+
+BinarySearchTree& BinarySearchTree::operator=(BinarySearchTree&& rhs)
+{
+    if(&rhs != this)
+    {
+        destroy(root);
+        root=rhs.root;
+        rhs.root=nullptr;
+    }
+
+    return *this;
+}
+
+
+BinarySearchTree::~BinarySearchTree() 
 {
     destroy(root);
     root=nullptr;
