@@ -31,6 +31,7 @@ private:
 
     
 public:
+    // bi 5: 
     BinaryTree();
     BinaryTree(const BinaryTree& other);
     BinaryTree(BinaryTree&& other);
@@ -38,8 +39,9 @@ public:
     BinaryTree& operator=(BinaryTree&& other); 
     ~BinaryTree();
 
-    void insert(int val);
-    void deleteLeftMost();
+    // wrapper functions: 
+    void insert(int val); // this calls the first helper function above. 
+    void deleteLeftMost();// this calls the 2nd helper function and yeah
     void deleteRightMost();
     void printInorder();
     void printPreorder();

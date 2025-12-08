@@ -90,10 +90,10 @@ void BinaryTree::destroyTree(TreeNode* node)
 
 void BinaryTree::insertRandom(TreeNode*& node, int val)
 {
-    if (node == nullptr)
+    if (node == nullptr) // when the node finds a empty node, it becomes null?
         node = new TreeNode(val);
 
-    else if (rand() % 2 == 0)
+    else if (rand() % 2 == 0) // this says if the number you genereateis even then it goes left, if not it goes right. this repeats like a coin flip until you find your empty space in the node. 
         insertRandom(node->left, val);
     
     else insertRandom(node->right, val);
@@ -135,27 +135,27 @@ void BinaryTree::deleteRightMost(TreeNode*& node)
 void BinaryTree::inorder(TreeNode* node) 
 {
     if (node == nullptr) return;
-    inorder(node->left);
-    cout << node->data << " ";
-    inorder(node->right);
+    inorder(node->left); // in order
+    cout << node->data << " "; //then prints
+    inorder(node->right); // in order again
 }
 
 
 void BinaryTree::preorder(TreeNode* node) 
 {
     if (node == nullptr) return;
-    cout << node->data << " ";
-    preorder(node->left);
-    preorder(node->right);
+    cout << node->data << " "; //print
+    preorder(node->left); // preorder
+    preorder(node->right); //preorder
 }
 
 
 void BinaryTree::postorder(TreeNode* node) 
 {
     if (node == nullptr) return;
-    postorder(node->left);
-    postorder(node->right);
-    cout << node->data << " ";
+    postorder(node->left); //post order
+    postorder(node->right); //post order
+    cout << node->data << " "; //prints
 }
 
 
