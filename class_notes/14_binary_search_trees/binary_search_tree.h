@@ -22,7 +22,7 @@ class BinarySearchTree
         BinarySearchTree(BinarySearchTree&& other);
         BinarySearchTree& operator=(const BinarySearchTree& rhs);
         BinarySearchTree& operator=(BinarySearchTree&& rhs);
-        
+
         Node* getRoot();
         Node* insert(Node* start, int val);
         void inOrder(Node* start);
