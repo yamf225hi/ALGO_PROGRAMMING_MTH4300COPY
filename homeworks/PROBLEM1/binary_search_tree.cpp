@@ -1,50 +1,50 @@
 #include<iostream>
 #include"binary_search_tree.h"
 
-
+// default constructor: 
 BinarySearchTree::BinarySearchTree():root(nullptr)
-{
-}
+{}
 
-
+// copy constructor:
 BinarySearchTree::BinarySearchTree(const BinarySearchTree& other): root(nullptr)
 {
-    if(!other.root) return;
+    if(!other.root) return; // if source is empty, done. 
     
-    root = new Node(other.root->data);
-    copyTree(other.root->left,root->left);
+    root = new Node(other.root->data); // copy root node.
+    copyTree(other.root->left,root->left); //recursively copy left subtree
     copyTree(other.root->right,root->right);
 }
 
-
+// copy tree helper
 void BinarySearchTree::copyTree(const Node* from_copy, Node*& to_copy)
 {
     //preorder
-    if(!from_copy) return;
-    to_copy=new Node(from_copy->data);
-    copyTree(from_copy->left, to_copy->left);
+    if(!from_copy) return; // base case, nothing to copy. 
+    to_copy=new Node(from_copy->data); // creates new node. 
+    copyTree(from_copy->left, to_copy->left); // copies left child. 
     copyTree(from_copy->right, to_copy->right);
 }
 
-
+// move constructor
 BinarySearchTree::BinarySearchTree(BinarySearchTree&& other) 
 {
-    root=other.root;
-    other.root=nullptr;
+    root=other.root; // steals others root. 
+    other.root=nullptr; // leaves other empty. 
 }
 
-
+// copy assignment operator
 BinarySearchTree& BinarySearchTree::operator=(const BinarySearchTree& rhs)
 {
-    if(&rhs != this)
+    if(&rhs != this) // self assignment check
     {
-        destroy(root);
+        destroy(root); // cleans up current tree
         if(!rhs.root)
         {
             root = nullptr;
             return *this;
         }
         
+        // deep copy:
         root = new Node(rhs.root->data);
         copyTree(rhs.root->left,root->left);
         copyTree(rhs.root->right,root->right);
@@ -53,7 +53,7 @@ BinarySearchTree& BinarySearchTree::operator=(const BinarySearchTree& rhs)
     return *this;
 }
 
-
+// move assignment operator
 BinarySearchTree& BinarySearchTree::operator=(BinarySearchTree&& rhs)
 {
     if(&rhs != this)
@@ -66,22 +66,22 @@ BinarySearchTree& BinarySearchTree::operator=(BinarySearchTree&& rhs)
     return *this;
 }
 
-
+// destructor
 BinarySearchTree::~BinarySearchTree() 
 {
     destroy(root);
     root=nullptr;
 }
 
-
+// destroy helper function
 void BinarySearchTree::destroy(Node* curr_del)
 {
-    if(!curr_del) return;
+    if(!curr_del) return; // base case
 
-    destroy(curr_del->left);
-    destroy(curr_del->right);
+    destroy(curr_del->left); // delete left subtree 
+    destroy(curr_del->right); 
 
-    delete curr_del;
+    delete curr_del; // delete current node
     curr_del=nullptr;
 }
 
@@ -109,24 +109,29 @@ Node* BinarySearchTree::insert(Node* start, int val)
     return start;
 }
 
-
+// in order traversal
 void BinarySearchTree::inOrder(Node* start)
 {
-    if (!start) return;
-
-    inOrder(start->left);
+    // Base case: empty subtree :
+    if (!start) return; 
+    // 1. Traverse left subtree :
+    inOrder(start->left); 
+    // 2. Visit current node :
     std::cout<<start->data<<" -> ";
-    inOrder(start->right);
+    // 3. Traverse right subtree 
+    inOrder(start->right);        
 }
 
-
+// search, iterative. 
 Node* BinarySearchTree::search(int val)
 {
     Node* curr=root;
     while (curr)
     {
+        // go left if smaller: 
         if(val < curr->data) curr=curr->left;
 
+        // else go right if larger:
         else if (val > curr->data) curr=curr->right;
 
         else return curr; // val==curr->data, so we found node
@@ -138,31 +143,24 @@ Node* BinarySearchTree::search(int val)
 
 Node* BinarySearchTree::deleteNode(Node* start, int val)
 {
-    if(!start) return nullptr;
-
+    if(!start) return nullptr;  // Base case: not found
+    
+    // Search for node
     else if(val < start->data) start->left=deleteNode(start->left,val);
-
     else if(val > start->data) start->right=deleteNode(start->right,val); 
     
-    else
-    {
-        if(start->left && start->right)//two children
-        {
-            Node* min_node = findMin( start->right );
-            start->data = min_node->data;
-            start->right = deleteNode( start->right, start->data );
+    else { // Found node to delete
+        if(start->left && start->right) { // Two children
+            Node* min_node = findMin(start->right);  // Find successor
+            start->data = min_node->data;            // Replace data
+            start->right = deleteNode(start->right, start->data); // Delete successor
         }
-
-
-       else //at most one children
-       {
+       else { // Zero or one child
             Node* save_spot=start->left?start->left:start->right;
             delete start;
-            return save_spot;
+            return save_spot; // Connect parent to child
        } 
-
     }
-
     return start;
 }
 
@@ -184,7 +182,7 @@ int BinarySearchTree::findKthSmallest(int k)
 {
     if (k < 1) return -1; // k must be a positive integer.
     int counter = 0;
-    return findKthSmallest(root, k, counter);
+    return findKthSmallest(root, k, counter); // Call recursive helper
 }
 
 // private recursive helper function to find the k-th smallest element
